@@ -3,55 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .container div {
-            width: 48%;
-        }
-        .edit-button {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Moving Heads Configuration</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Main Page</h1>
-    
-    <button class="edit-button" onclick="window.location.href='edit.html'">Edit Moving Heads and Channel Types</button>
-    
     <div class="container">
-        <div>
-            <label for="source-moving-head">Source Moving Head:</label>
-            <select id="source-moving-head" onchange="updateChannels('source')">
-                <option value="">Select Source Moving Head</option>
-            </select>
-            <div id="source-channels"></div>
+        <div id="tabs">
+            <button onclick="showTab('manage')">Manage</button>
+            <button onclick="showTab('generate')">Generate XDMX Map</button>
+            <button onclick="window.location.href='edit.html'">Edit</button>
         </div>
         
-        <div>
-            <label for="destination-moving-head">Destination Moving Head:</label>
-            <select id="destination-moving-head" onchange="updateChannels('destination')">
-                <option value="">Select Destination Moving Head</option>
-            </select>
-            <div id="destination-channels"></div>
+        <div id="manage-tab" class="tab-content">
+            <h2>Manage Moving Heads</h2>
+            <div class="dropdown-container">
+                <select id="source-moving-head">
+                    <option value="">Select Source Moving Head</option>
+                </select>
+                <select id="dest-moving-head">
+                    <option value="">Select Destination Moving Head</option>
+                </select>
+            </div>
+            <button onclick="generateXDMXMap()">Generate XDMX Map</button>
+            <pre id="xdmx-map-output"></pre>
+        </div>
+        
+        <div id="edit-tab" class="tab-content" style="display:none;">
+            <h2>Edit Moving Heads and Channel Types</h2>
+            <!-- Add/Edit/Delete moving heads and channel types here -->
         </div>
     </div>
-    
-    <button onclick="generateXDMXMap()">Generate XDMX Map</button>
-    <pre id="xdmx-map-output"></pre>
-
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
