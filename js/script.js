@@ -20,9 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 movingHeads = data.moving_heads || [];
                 channelTypes = data.channel_types || [];
                 updateDropdowns();
-                if (document.getElementById('moving-heads-list') && document.getElementById('channel-types-list')) {
-                    updateLists();
-                }
+                updateLists(); // Update lists for edit page
             })
             .catch(error => {
                 console.error('Error loading data:', error);
@@ -242,16 +240,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setupEditPage();
     }
 
-    document.getElementById('add-moving-head-button')?.addEventListener('click', () => addMovingHead());
-    document.getElementById('add-channel-type-button')?.addEventListener('click', () => addChannelType());
+    document.getElementById('add-moving-head-button')?.addEventListener('click', () => alert('Add Moving Head functionality not implemented.'));
+    document.getElementById('add-channel-type-button')?.addEventListener('click', () => alert('Add Channel Type functionality not implemented.'));
+    document.getElementById('edit-moving-head-button')?.addEventListener('click', editMovingHead);
+    document.getElementById('edit-channel-type-button')?.addEventListener('click', editChannelType);
+    document.getElementById('delete-moving-head-button')?.addEventListener('click', deleteMovingHead);
+    document.getElementById('delete-channel-type-button')?.addEventListener('click', deleteChannelType);
 });
-
-function addMovingHead() {
-    // Implement the add functionality here
-    alert('Add Moving Head functionality not implemented.');
-}
-
-function addChannelType() {
-    // Implement the add functionality here
-    alert('Add Channel Type functionality not implemented.');
-}
