@@ -9,11 +9,23 @@
 <body>
     <div class="container">
         <h1>Moving Head Editor</h1>
-        <div id="controls">
-            <button id="generate-button">Generate XDMX Map</button>
+        <div id="dropdown-container">
+            <div id="source-container">
+                <label for="source-moving-head">Source Moving Head:</label>
+                <select id="source-moving-head">
+                    <option value="">Select Source Moving Head</option>
+                </select>
+                <div id="source-channels"></div>
+            </div>
+            <div id="dest-container">
+                <label for="dest-moving-head">Destination Moving Head:</label>
+                <select id="dest-moving-head">
+                    <option value="">Select Destination Moving Head</option>
+                </select>
+                <div id="dest-channels"></div>
+            </div>
         </div>
-        <div id="source-channels"></div>
-        <div id="dest-channels"></div>
+        <button id="generate-button">Generate XDMX Map</button>
     </div>
     <a href="edit.html" id="edit-button">Edit</a>
 
