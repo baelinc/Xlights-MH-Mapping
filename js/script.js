@@ -5,37 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const destChannelsDiv = document.getElementById('dest-channels');
     const generateButton = document.getElementById('generate-button');
     const editButton = document.getElementById('edit-button');
-    const passwordForm = document.getElementById('password-form');
-    const cancelButton = document.getElementById('cancel-button');
-    const passwordEditPage = document.getElementById('password-edit-page');
-    const addMovingHeadForm = document.getElementById('add-moving-head-form');
-    const addChannelTypeForm = document.getElementById('add-channel-type-form');
-    const movingHeadList = document.getElementById('moving-head-list');
-    const channelTypeList = document.getElementById('channel-type-list');
-
-    if (editButton) {
-        editButton.addEventListener('click', () => {
-            window.location.href = 'password.html';
-        });
-    }
-
-    if (passwordForm) {
-        passwordForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const password = document.getElementById('password').value;
-            if (password === 'admin') {
-                window.location.href = 'edit.html';
-            } else {
-                alert('Incorrect password');
-            }
-        });
-    }
-
-    if (cancelButton) {
-        cancelButton.addEventListener('click', () => {
-            window.location.href = 'index.html';
-        });
-    }
 
     // Fetch data and populate dropdowns
     fetch('data/moving_heads_channel_types.json')
@@ -55,19 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             } else {
                 console.error('No moving heads data available');
-            }
-
-            if (channel_types && channel_types.length > 0) {
-                channel_types.forEach(channelType => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = channelType;
-                    listItem.addEventListener('dblclick', () => {
-                        editChannelType(channelType);
-                    });
-                    channelTypeList.appendChild(listItem);
-                });
-            } else {
-                console.error('No channel types data available');
             }
 
             // Update channels based on selected moving head
@@ -122,83 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (addMovingHeadForm) {
-        addMovingHeadForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const name = document.getElementById('moving-head-name').value;
-            const channels = [];
-            for (let i = 1; i <= parseInt(document.getElementById('num-channels').value, 10); i++) {
-                const channelType = document.getElementById(`channel-${i}`).value;
-                channels.push(channelType);
-            }
-            // Add moving head to the data
-            addMovingHead(name, channels);
+    if (editButton) {
+        editButton.addEventListener('click', () => {
+            window.location.href = 'password.html';
         });
-    }
-
-    if (addChannelTypeForm) {
-        addChannelTypeForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const newChannelType = document.getElementById('new-channel-type').value;
-            // Add channel type to the data
-            addChannelType(newChannelType);
-        });
-    }
-
-    function addMovingHead(name, channels) {
-        fetch('data/moving_heads_channel_types.json')
-            .then(response => response.json())
-            .then(data => {
-                data.moving_heads.push({ name, channels });
-                return fetch('data/moving_heads_channel_types.json', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-            })
-            .then(() => {
-                alert('Moving head added successfully!');
-                window.location.reload();
-            });
-    }
-
-    function addChannelType(newChannelType) {
-        fetch('data/moving_heads_channel_types.json')
-            .then(response => response.json())
-            .then(data => {
-                data.channel_types.push(newChannelType);
-                return fetch('data/moving_heads_channel_types.json', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-            })
-            .then(() => {
-                alert('Channel type added successfully!');
-                window.location.reload();
-            });
-    }
-
-    function editChannelType(channelType) {
-        const newChannelType = prompt('Edit channel type:', channelType);
-        if (newChannelType) {
-            fetch('data/moving_heads_channel_types.json')
-                .then(response => response.json())
-                .then(data => {
-                    const index = data.channel_types.indexOf(channelType);
-                    if (index > -1) {
-                        data.channel_types[index] = newChannelType;
-                        return fetch('data/moving_heads_channel_types.json', {
-                            method: 'PUT',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(data)
-                        });
-                    }
-                })
-                .then(() => {
-                    alert('Channel type updated successfully!');
-                    window.location.reload();
-                });
-        }
     }
 });
