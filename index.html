@@ -3,43 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <title>Index Page</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Moving Head Mapping Tool</h1>
+        <div class="content">
+            <table>
+                <tr>
+                    <td><label for="source-moving-head">Source Moving Head</label></td>
+                    <td><label for="destination-moving-head">Destination Moving Head</label></td>
+                </tr>
+                <tr>
+                    <td><select id="source-moving-head"></select></td>
+                    <td><select id="destination-moving-head"></select></td>
+                </tr>
+                <tr>
+                    <td><div id="source-channels"></div></td>
+                    <td><div id="destination-channels"></div></td>
+                </tr>
+            </table>
+            <button id="generate-button">Generate XDMXMap File</button>
         </div>
-        <table>
-            <tr>
-                <th>Source Moving Head</th>
-                <th>Destination Moving Head</th>
-            </tr>
-            <tr>
-                <td>
-                    <select id="source-moving-head">
-                        <option value="" disabled selected>Select Source Moving Head</option>
-                        <!-- Options will be populated here -->
-                    </select>
-                    <div id="source-channels">
-                        <!-- Source channels will be populated here -->
-                    </div>
-                </td>
-                <td>
-                    <select id="destination-moving-head">
-                        <option value="" disabled selected>Select Destination Moving Head</option>
-                        <!-- Options will be populated here -->
-                    </select>
-                    <div id="destination-channels">
-                        <!-- Destination channels will be populated here -->
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <button id="generate-button">Generate .xdmxmap</button>
     </div>
-    <button id="edit-button">Edit</button>
+    <button id="edit-button" class="floating-button">Edit</button>
     <script src="js/script.js"></script>
 </body>
 </html>
