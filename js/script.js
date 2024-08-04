@@ -1,22 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     const correctPassword = 'admin';
     const passwordForm = document.getElementById('password-form');
-    const passwordInput = document.getElementById('password');
+    const passwordInput = document.getElementById('password-input');
     const cancelButton = document.getElementById('cancel-button');
 
+    // Handle password form submission
     if (passwordForm && passwordInput && cancelButton) {
         passwordForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent the form from submitting the traditional way
             if (passwordInput.value === correctPassword) {
-                window.location.href = 'index.html';
+                window.location.href = 'index.html'; // Redirect to index page
             } else {
                 alert('Incorrect password. Please try again.');
-                passwordInput.value = '';
+                passwordInput.value = ''; // Clear the password field
             }
         });
 
+        // Handle cancel button click
         cancelButton.addEventListener('click', function() {
-            window.location.href = 'index.html';
+            window.location.href = 'index.html'; // Redirect to index page
         });
     } else {
         console.error('Required elements are missing from the password page.');
@@ -26,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let movingHeads = [];
     let channelTypes = [];
 
+    // Function to load data from JSON file
     function loadData() {
         fetch(dataFilePath)
             .then(response => {
@@ -45,13 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    // Function to update dropdowns with moving head options
     function updateDropdowns() {
         const sourceDropdown = document.getElementById('source-moving-head');
         const destinationDropdown = document.getElementById('destination-moving-head');
 
         if (sourceDropdown && destinationDropdown) {
-            sourceDropdown.innerHTML = '<option value="">Select Source Moving Head</option>';
-            destinationDropdown.innerHTML = '<option value="">Select Destination Moving Head</option>';
+            sourceDropdown.innerHTML = '<option value="" disabled selected>Select Source Moving Head</option>';
+            destinationDropdown.innerHTML = '<option value="" disabled selected>Select Destination Moving Head</option>';
 
             movingHeads.forEach(movingHead => {
                 const option = document.createElement('option');
@@ -68,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Function to update channel lists based on the selected moving head
     function updateChannels(type) {
         const dropdown = document.getElementById(`${type}-moving-head`);
         const channelsDiv = document.getElementById(`${type}-channels`);
@@ -81,12 +86,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     p.textContent = `Channel ${index + 1}: ${channel}`;
                     channelsDiv.appendChild(p);
                 });
+            } else {
+                channelsDiv.textContent = 'No channels available';
             }
         } else {
             console.error('Channels div is missing.');
         }
     }
 
+    // Function to generate the XDMXMap file
     function generateXDMXMap() {
         const sourceDropdown = document.getElementById('source-moving-head');
         const destinationDropdown = document.getElementById('destination-moving-head');
@@ -109,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Function to download the generated file
     function downloadFile(filename, content) {
         const blob = new Blob([content], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -119,10 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(url);
     }
 
+    // Initialize the page
     if (document.getElementById('source-moving-head') && document.getElementById('destination-moving-head')) {
         loadData();
     }
 
     document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
-    document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'edit.html');
+    document.getElementById('edit-button')?.addEventListener('click', () => {
+        // Redirect to password page before accessing edit.html
+        window.location.href = 'password.html';
+    });
 });
