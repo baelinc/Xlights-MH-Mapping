@@ -1,0 +1,82 @@
+{
+    "moving_heads": [
+        {
+            "name": "Phoenix Ray",
+            "channels": [
+                "Pan",
+                "Pan Fine",
+                "Tilt",
+                "Tilt Fine",
+                "Pan & Tilt Speed",
+                "Dimming",
+                "Strobe",
+                "Color Wheel",
+                "Gobo",
+                "Color Mirror",
+                "Prism",
+                "Prism Rotate",
+                "Focus",
+                "Reset"
+            ]
+        },
+        {
+            "name": "YPS 350W",
+            "channels": [
+                "Color Wheel",
+                "Dimming",
+                "Strobe",
+                "Color Wheel",
+                "Prism",
+                "Prism Rotate",
+                "Blank",
+                "Blank",
+                "Focus",
+                "Pan",
+                "Pan Fine",
+                "Tilt",
+                "Tilt Fine",
+                "Pan & Tilt Speed",
+                "Color Mirror",
+                "Reset"
+            ]
+        },
+        {
+            "name": "Mattos 350w & 380w",
+            "channels": [
+                "Color Wheel",
+                "Dimming",
+                "Strobe",
+                "Gobo",
+                "Prism",
+                "Prism Rotate",
+                "Blank",
+                "Blank",
+                "Focus",
+                "Pan",
+                "Pan Fine",
+                "Tilt",
+                "Tilt Fine",
+                "Pan & Tilt Speed",
+                "Prism",
+                "Reset"
+            ]
+        }
+    ],
+    "channel_types": [
+        "Pan",
+        "Pan Fine",
+        "Tilt",
+        "Tilt Fine",
+        "Pan & Tilt Speed",
+        "Dimming",
+        "Strobe",
+        "Color Wheel",
+        "Gobo",
+        "Color Mirror",
+        "Prism",
+        "Prism Rotate",
+        "Focus",
+        "Reset",
+        "Blank"
+    ]
+}
