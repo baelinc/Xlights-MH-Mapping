@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             passwordForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 if (passwordInput.value === correctPassword) {
-                    window.location.href = 'edit.html';
+                    window.location.href = 'edit_data.html'; // Updated page name
                 } else {
                     alert('Incorrect password. Please try again.');
                     passwordInput.value = '';
@@ -240,6 +240,32 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             console.error('List elements are missing.');
         }
+    }
+
+    function saveData() {
+        const updatedData = {
+            moving_heads: movingHeads,
+            channel_types: channelTypes
+        };
+
+        fetch(dataFilePath, {
+            method: 'POST',  // Changed from 'PUT' to 'POST'
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Data saved successfully.');
+            } else {
+                throw new Error('Failed to save data.');
+            }
+        })
+        .catch(error => {
+            console.error('Error saving data:', error);
+            alert('Failed to save data. Please check the console for errors.');
+        });
     }
 
     document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
