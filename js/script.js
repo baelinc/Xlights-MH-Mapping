@@ -1,6 +1,3 @@
-// Constants
-const PASSWORD = "evans"; // Set this to your desired password
-
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('main')) {
         loadData();
@@ -22,7 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('edit-channel-type')) {
         document.getElementById('edit-channel-type-form').addEventListener('submit', updateChannelType);
     }
+    if (document.getElementById('generate-xdmxmap')) {
+        document.getElementById('generate-xdmxmap').addEventListener('click', generateXDMXMap);
+    }
 });
+
+// Constants
+const PASSWORD = 'admin'; // Change this to your desired password
 
 // Show a specific tab
 function showTab(tabId) {
@@ -34,41 +37,57 @@ function showTab(tabId) {
 
 // Load data from the JSON file
 function loadData() {
-    fetch('data/moving_heads_channel_types.json')
-        .then(response => response.json())
+    fetch('moving_heads_channel_types.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             window.data = data;
             populateMovingHeads();
             populateChannelTypes();
             updateDropdowns();
         })
-        .catch(error => console.error('Error loading data:', error));
+        .catch(error => {
+            console.error('Error loading data:', error);
+            alert('Failed to load data. Check the console for details.');
+        });
 }
 
 // Populate the moving heads list
 function populateMovingHeads() {
     const list = document.getElementById('moving-heads-list');
     list.innerHTML = '';
-    window.data.moving_heads.forEach((head, index) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${head.name} (${head.channels.join(', ')})`;
-        listItem.addEventListener('dblclick', () => editMovingHead(head));
-        listItem.dataset.index = index;
-        list.appendChild(listItem);
-    });
+    if (window.data && window.data.moving_heads) {
+        window.data.moving_heads.forEach((head, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = head.name;
+            listItem.addEventListener('dblclick', () => editMovingHead(head, index));
+            listItem.dataset.index = index;
+            list.appendChild(listItem);
+        });
+    } else {
+        console.warn('No moving heads data available');
+    }
 }
 
 // Populate the channel types list
 function populateChannelTypes() {
     const list = document.getElementById('channel-types-list');
     list.innerHTML = '';
-    window.data.channel_types.forEach((type, index) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = type;
-        listItem.addEventListener('dblclick', () => editChannelType(type));
-        listItem.dataset.index = index;
-        list.appendChild(listItem);
-    });
+    if (window.data && window.data.channel_types) {
+        window.data.channel_types.forEach((type, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = type;
+            listItem.addEventListener('dblclick', () => editChannelType(type, index));
+            listItem.dataset.index = index;
+            list.appendChild(listItem);
+        });
+    } else {
+        console.warn('No channel types data available');
+    }
 }
 
 // Update dropdowns with moving head options
@@ -79,13 +98,17 @@ function updateDropdowns() {
     sourceSelect.innerHTML = '<option value="">Select Source Moving Head</option>';
     destinationSelect.innerHTML = '<option value="">Select Destination Moving Head</option>';
 
-    window.data.moving_heads.forEach((head, index) => {
-        const option = document.createElement('option');
-        option.value = index;
-        option.textContent = head.name;
-        sourceSelect.appendChild(option);
-        destinationSelect.appendChild(option.cloneNode(true));
-    });
+    if (window.data && window.data.moving_heads) {
+        window.data.moving_heads.forEach((head, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = head.name;
+            sourceSelect.appendChild(option);
+            destinationSelect.appendChild(option.cloneNode(true));
+        });
+    } else {
+        console.warn('No moving heads data available for dropdowns');
+    }
 }
 
 // Update channels for the selected moving head
@@ -125,7 +148,10 @@ function addMovingHead(event) {
         };
         window.data.moving_heads.push(movingHead);
         saveData();
-        window.location.href = 'edit.html';
+        populateMovingHeads();
+        alert('Moving head added successfully');
+    } else {
+        alert('Please fill in all fields.');
     }
 }
 
@@ -149,7 +175,10 @@ function updateMovingHead(event) {
             channels: channels.split(',').map(ch => ch.trim())
         };
         saveData();
-        window.location.href = 'edit.html';
+        populateMovingHeads();
+        alert('Moving head updated successfully');
+    } else {
+        alert('Please fill in all fields.');
     }
 }
 
@@ -167,7 +196,10 @@ function addChannelType(event) {
     if (type) {
         window.data.channel_types.push(type);
         saveData();
-        window.location.href = 'edit.html';
+        populateChannelTypes();
+        alert('Channel type added successfully');
+    } else {
+        alert('Please fill in the channel type.');
     }
 }
 
@@ -187,7 +219,10 @@ function updateChannelType(event) {
     if (type && index !== undefined) {
         window.data.channel_types[index] = type;
         saveData();
-        window.location.href = 'edit.html';
+        populateChannelTypes();
+        alert('Channel type updated successfully');
+    } else {
+        alert('Please fill in all fields.');
     }
 }
 
@@ -206,6 +241,9 @@ function deleteMovingHead() {
         window.data.moving_heads.splice(index, 1);
         saveData();
         populateMovingHeads();
+        alert('Moving head deleted successfully');
+    } else {
+        alert('No moving head selected.');
     }
 }
 
@@ -224,6 +262,9 @@ function deleteChannelType() {
         window.data.channel_types.splice(index, 1);
         saveData();
         populateChannelTypes();
+        alert('Channel type deleted successfully');
+    } else {
+        alert('No channel type selected.');
     }
 }
 
