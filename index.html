@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Head Manager</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Moving Head Manager</h1>
+
+    <!-- Tabs -->
+    <div id="tabs">
+        <button class="tablink" onclick="openTab(event, 'Manage')">Manage</button>
+        <button class="tablink" onclick="openTab(event, 'Edit')">Edit</button>
+        <button class="tablink" onclick="openTab(event, 'ChannelTypes')">Channel Types</button>
+    </div>
+
+    <!-- Tab Contents -->
+    <div id="Manage" class="tabcontent">
+        <h2>Manage Moving Heads</h2>
+        <div>
+            <select id="sourceMovingHead" onchange="populateChannels('source')"></select>
+            <ul id="sourceChannels"></ul>
+        </div>
+        <div>
+            <select id="targetMovingHead" onchange="populateChannels('target')"></select>
+            <ul id="targetChannels"></ul>
+        </div>
+        <button onclick="generateFile()">Generate File</button>
+    </div>
+
+    <!-- Login Form for Edit Tabs -->
+    <div id="editLogin" class="tabcontent">
+        <h2>Login to Edit</h2>
+        <form id="loginForm">
+            <input type="password" id="password" placeholder="Enter password">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Edit Tab Contents -->
+    <div id="Edit" class="tabcontent" style="display:none;">
+        <h2>Edit Moving Heads</h2>
+        <ul id="movingHeadsList"></ul>
+        <button onclick="addMovingHead()">Add Moving Head</button>
+    </div>
+
+    <div id="ChannelTypes" class="tabcontent" style="display:none;">
+        <h2>Edit Channel Types</h2>
+        <ul id="channelTypesList"></ul>
+        <button onclick="addChannelType()">Add Channel Type</button>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
