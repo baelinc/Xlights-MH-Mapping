@@ -2,46 +2,46 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#login, #editLogin {
+.container {
+    width: 80%;
     margin: 0 auto;
-    width: 300px;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    padding: 20px;
 }
 
-#tabs {
-    overflow: hidden;
-    text-align: center;
-    margin-bottom: 20px;
-    margin: 10px;
+#edit-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
 }
 
-.tablink {
-    background-color: #555;
-    color: white;
-    border: none;
-    outline: none;
+#generate-button {
+    margin-top: 20px;
+}
+
+#source-channels, #dest-channels {
+    margin-top: 20px;
+}
+
+#edit-content {
+    margin-top: 20px;
+}
+
+#moving-heads-list, #channel-types-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#moving-heads-list li, #channel-types-list li {
     cursor: pointer;
-    padding: 14px 16px;
-    font-size: 17px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
 }
 
-.tablink:hover {
-    background-color: #777;
+#moving-heads-list li:hover, #channel-types-list li:hover {
+    background-color: #f0f0f0;
 }
 
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border-top: none;
-}
-
-.tabcontent h2 {
-    margin-top: 0;
-}
-
-.tab-content.active {
-    display: block;
+#password-section {
+    margin-bottom: 20px;
 }
