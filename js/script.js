@@ -61,14 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
             let blankChannelNumber = 99;
 
             sourceMovingHeadChannels.forEach((sourceChannelDiv, index) => {
-                const sourceChannelDescription = sourceChannelDiv.textContent.split(': ')[1];
+                const sourceChannelDescription = sourceChannelDiv.textContent.split(': ')[1].trim();
                 let destChannelNumber = '';
                 let destChannelDescription = '';
 
                 // Find matching destination channel
                 const destChannelDiv = destMovingHeadChannels.find(div => div.textContent.includes(sourceChannelDescription));
                 if (destChannelDiv) {
-                    destChannelDescription = destChannelDiv.textContent.split(': ')[1];
+                    destChannelDescription = destChannelDiv.textContent.split(': ')[1].trim();
                     destChannelNumber = destChannelDiv.textContent.split(' ')[1];
                 } else {
                     // Handle blank channels
