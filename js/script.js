@@ -199,6 +199,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function updateLists() {
+        const movingHeadsList = document.getElementById('moving-heads-list');
+        const channelTypesList = document.getElementById('channel-types-list');
+
+        if (movingHeadsList && channelTypesList) {
+            movingHeadsList.innerHTML = '';
+            channelTypesList.innerHTML = '';
+
+            movingHeads.forEach(movingHead => {
+                const option = document.createElement('option');
+                option.value = movingHead.name;
+                option.textContent = movingHead.name;
+                movingHeadsList.appendChild(option);
+            });
+
+            channelTypes.forEach(channelType => {
+                const option = document.createElement('option');
+                option.value = channelType;
+                option.textContent = channelType;
+                channelTypesList.appendChild(option);
+            });
+        } else {
+            console.error('List elements are missing.');
+        }
+    }
+
     document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
     document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'password.html');
 
@@ -215,9 +241,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('add-moving-head-button')?.addEventListener('click', () => alert('Add Moving Head functionality not implemented.'));
-    document.getElementById('edit-moving-head-button')?.addEventListener('click', editMovingHead);
-    document.getElementById('delete-moving-head-button')?.addEventListener('click', deleteMovingHead);
     document.getElementById('add-channel-type-button')?.addEventListener('click', () => alert('Add Channel Type functionality not implemented.'));
+    document.getElementById('edit-moving-head-button')?.addEventListener('click', editMovingHead);
     document.getElementById('edit-channel-type-button')?.addEventListener('click', editChannelType);
+    document.getElementById('delete-moving-head-button')?.addEventListener('click', deleteMovingHead);
     document.getElementById('delete-channel-type-button')?.addEventListener('click', deleteChannelType);
 });
