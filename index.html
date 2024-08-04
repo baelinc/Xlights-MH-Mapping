@@ -3,46 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moving Heads Manager</title>
+    <title>Main Page</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="tabs">
-        <button onclick="showTab('main')">Main</button>
-        <button onclick="showTab('manage')">Manage</button>
+    <h1>Main Page</h1>
+    
+    <button onclick="window.location.href='edit.html'">Edit Moving Heads and Channel Types</button>
+    
+    <div>
+        <label for="source-moving-head">Source Moving Head:</label>
+        <select id="source-moving-head" onchange="updateChannels('source')">
+            <option value="">Select Source Moving Head</option>
+        </select>
+        <div id="source-channels"></div>
     </div>
-
-    <div id="main" class="tab-content">
-        <h1>Main Page</h1>
-        <div>
-            <label for="source-moving-head">Source Moving Head:</label>
-            <select id="source-moving-head" onchange="updateChannels()">
-                <option value="">Select Source Moving Head</option>
-            </select>
-        </div>
-        <div>
-            <label for="destination-moving-head">Destination Moving Head:</label>
-            <select id="destination-moving-head" onchange="updateChannels()">
-                <option value="">Select Destination Moving Head</option>
-            </select>
-        </div>
-        <button onclick="generateXDMXMap()">Generate XDMX Map</button>
-        <pre id="xdmx-map-output"></pre>
+    
+    <div>
+        <label for="destination-moving-head">Destination Moving Head:</label>
+        <select id="destination-moving-head" onchange="updateChannels('destination')">
+            <option value="">Select Destination Moving Head</option>
+        </select>
+        <div id="destination-channels"></div>
     </div>
-
-    <div id="manage" class="tab-content">
-        <h1>Manage Page</h1>
-        <button onclick="window.location.href='add-moving-head.html'">Add Moving Head</button>
-        <button onclick="window.location.href='add-channel-type.html'">Add Channel Type</button>
-        <button onclick="deleteMovingHead()">Delete Moving Head</button>
-        <button onclick="deleteChannelType()">Delete Channel Type</button>
-
-        <h2>Moving Heads</h2>
-        <ul id="moving-heads-list"></ul>
-
-        <h2>Channel Types</h2>
-        <ul id="channel-types-list"></ul>
-    </div>
+    
+    <button onclick="generateXDMXMap()">Generate XDMX Map</button>
+    <pre id="xdmx-map-output"></pre>
 
     <script src="js/script.js"></script>
 </body>
