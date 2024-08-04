@@ -17,14 +17,14 @@ const PASSWORD = "admin"; // Hardcoded password for simplicity
 
 async function loadData() {
     try {
-        // Adjust the path to point to the data folder
-        const response = await fetch('/data/moving_heads_channel_types.json');
+        const response = await fetch('data/moving_heads_channel_types.json');
         if (!response.ok) throw new Error('Network response was not ok.');
         const jsonData = await response.json();
         console.log('Loaded data:', jsonData);  // Debug: Check if data is loaded correctly
         data.moving_heads = jsonData.moving_heads;
         data.channel_types = jsonData.channel_types;
         populateMovingHeadsDropdowns();  // Populate dropdowns after data is loaded
+        updateMovingHeadsList();        // Populate moving heads list on edit page
         updateChannelTypesList();        // Populate channel types list on edit page
     } catch (error) {
         console.error('Error loading JSON data:', error);
@@ -34,8 +34,9 @@ async function loadData() {
 function setupIndexPage() {
     loadData();
     document.getElementById('generate-button').addEventListener('click', generateXDMXMap);
-    // Set the default tab
-    document.getElementById('manage-tab').classList.add('active');
+    document.getElementById('edit-button').addEventListener('click', () => {
+        window.location.href = 'password.html';
+    });
 }
 
 function populateMovingHeadsDropdowns() {
@@ -231,10 +232,10 @@ function addChannelType() {
 }
 
 function editChannelType(name) {
-    const newName = prompt('Edit channel type name:', name);
-    if (newName) {
-        const index = data.channel_types.indexOf(name);
-        if (index !== -1) {
+    const index = data.channel_types.indexOf(name);
+    if (index !== -1) {
+        const newName = prompt('Edit channel type:', name);
+        if (newName) {
             data.channel_types[index] = newName;
             updateChannelTypesList();
             saveData();
@@ -253,12 +254,6 @@ function deleteChannelType() {
 }
 
 function saveData() {
-    // Function to save data to the JSON file
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'moving_heads_channel_types.json';
-    a.click();
-    URL.revokeObjectURL(url);
+    // Implement data saving functionality here
+    console.log('Data saved:', data); // Placeholder for actual saving mechanism
 }
