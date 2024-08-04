@@ -4,54 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Moving Heads and Channel Types</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        .edit-button {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Edit Moving Heads and Channel Types</h1>
+    <div class="container">
+        <h1>Edit Moving Heads and Channel Types</h1>
+        <div id="password-section">
+            <input type="password" id="password" placeholder="Enter password">
+            <button id="login-button">Login</button>
+        </div>
+        <div id="edit-content" style="display: none;">
+            <h2>Moving Heads</h2>
+            <ul id="moving-heads-list"></ul>
+            <button id="add-moving-head">Add Moving Head</button>
+            <button id="delete-moving-head">Delete Selected Moving Head</button>
 
-    <button class="edit-button" onclick="window.location.href='index.html'">Back to Main</button>
-    
-    <div id="manage-moving-heads">
-        <h2>Moving Heads</h2>
-        <ul id="moving-heads-list"></ul>
-        <button onclick="showAddMovingHeadForm()">Add Moving Head</button>
-        <button onclick="deleteMovingHead()">Delete Selected Moving Head</button>
-        <div id="edit-moving-head-form" style="display:none;">
-            <h3>Edit Moving Head</h3>
-            <label for="edit-moving-head-name">Name:</label>
-            <input type="text" id="edit-moving-head-name">
-            <label for="edit-moving-head-channels">Number of Channels:</label>
-            <input type="number" id="edit-moving-head-channels">
-            <button onclick="updateMovingHead()">Update Moving Head</button>
+            <h2>Channel Types</h2>
+            <ul id="channel-types-list"></ul>
+            <button id="add-channel-type">Add Channel Type</button>
+            <button id="delete-channel-type">Delete Selected Channel Type</button>
         </div>
     </div>
-
-    <div id="manage-channel-types">
-        <h2>Channel Types</h2>
-        <ul id="channel-types-list"></ul>
-        <button onclick="showAddChannelTypeForm()">Add Channel Type</button>
-        <button onclick="deleteChannelType()">Delete Selected Channel Type</button>
-        <div id="edit-channel-type-form" style="display:none;">
-            <h3>Edit Channel Type</h3>
-            <label for="edit-channel-type-name">Name:</label>
-            <input type="text" id="edit-channel-type-name">
-            <button onclick="updateChannelType()">Update Channel Type</button>
-        </div>
-    </div>
-
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
