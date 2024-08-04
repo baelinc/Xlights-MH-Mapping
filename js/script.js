@@ -26,14 +26,22 @@ let channelTypes = [];
 // Load JSON data
 function loadData() {
     fetch(dataFilePath)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.json();
+        })
         .then(data => {
             movingHeads = data.moving_heads || [];
             channelTypes = data.channel_types || [];
             updateDropdowns();
             updateChannelTypesList();
         })
-        .catch(error => console.error('Error loading data:', error));
+        .catch(error => {
+            console.error('Error loading data:', error);
+            alert('Failed to load data. Please check the console for errors.');
+        });
 }
 
 // Update dropdowns for moving heads
