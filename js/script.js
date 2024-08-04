@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Password Protection
     const correctPassword = 'admin';
     const passwordForm = document.getElementById('password-form');
     const passwordInput = document.getElementById('password');
@@ -23,12 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Required elements are missing from the password page.');
     }
 
-    // Data Handling
     const dataFilePath = 'data/moving_heads_channel_types.json';
     let movingHeads = [];
     let channelTypes = [];
 
-    // Load JSON data
     function loadData() {
         fetch(dataFilePath)
             .then(response => {
@@ -49,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Update dropdowns for moving heads
     function updateDropdowns() {
         const sourceDropdown = document.getElementById('source-moving-head');
         const destinationDropdown = document.getElementById('destination-moving-head');
@@ -66,18 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 destinationDropdown.appendChild(option);
             });
 
-            sourceDropdown.addEventListener('change', function() {
-                updateChannels('source');
-            });
-            destinationDropdown.addEventListener('change', function() {
-                updateChannels('destination');
-            });
+            sourceDropdown.addEventListener('change', () => updateChannels('source'));
+            destinationDropdown.addEventListener('change', () => updateChannels('destination'));
         } else {
             console.error('Dropdown elements are missing.');
         }
     }
 
-    // Update channels display based on selected moving head
     function updateChannels(type) {
         const dropdown = document.getElementById(`${type}-moving-head`);
         const channelsDiv = document.getElementById(`${type}-channels`);
@@ -97,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Update channel types list
     function updateChannelTypesList() {
         const listbox = document.getElementById('channel-types-list');
         if (listbox) {
@@ -114,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Add a new moving head
     function addMovingHead(name, numChannels) {
         movingHeads.push({
             name,
@@ -123,13 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDropdowns();
     }
 
-    // Add a new channel type
     function addChannelType(type) {
         channelTypes.push(type);
         updateChannelTypesList();
     }
 
-    // Edit an existing channel type
     function editChannelType(oldType) {
         const newType = prompt('Enter new channel type:', oldType);
         if (newType && newType !== oldType) {
@@ -141,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Delete a channel type
     function deleteChannelType(type) {
         const index = channelTypes.indexOf(type);
         if (index !== -1) {
@@ -150,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Generate the .xdmxmap file
     function generateXDMXMap() {
         const sourceDropdown = document.getElementById('source-moving-head');
         const destinationDropdown = document.getElementById('destination-moving-head');
@@ -173,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Helper function to download a file
     function downloadFile(filename, content) {
         const blob = new Blob([content], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -184,8 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(url);
     }
 
-    // Initialize the application
     if (document.getElementById('source-moving-head') && document.getElementById('destination-moving-head')) {
         loadData();
     }
+
+    document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
+    document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'edit.html');
 });
