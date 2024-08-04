@@ -3,28 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Moving Heads and Channel Types</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Edit Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <h1>Edit Moving Heads and Channel Types</h1>
-        <div id="password-section">
-            <input type="password" id="password" placeholder="Enter password">
-            <button id="login-button">Login</button>
-        </div>
-        <div id="edit-content" style="display: none;">
-            <h2>Moving Heads</h2>
+        <div class="manage-section">
+            <h2>Manage Moving Heads</h2>
             <ul id="moving-heads-list"></ul>
-            <button id="add-moving-head">Add Moving Head</button>
-            <button id="delete-moving-head">Delete Selected Moving Head</button>
-
-            <h2>Channel Types</h2>
+            <button id="add-moving-head-button">Add Moving Head</button>
+            <button id="edit-moving-head-button">Edit Selected Moving Head</button>
+            <button id="delete-moving-head-button">Delete Selected Moving Head</button>
+        </div>
+        <div class="manage-section">
+            <h2>Manage Channel Types</h2>
             <ul id="channel-types-list"></ul>
-            <button id="add-channel-type">Add Channel Type</button>
-            <button id="delete-channel-type">Delete Selected Channel Type</button>
+            <button id="add-channel-type-button">Add Channel Type</button>
+            <button id="edit-channel-type-button">Edit Selected Channel Type</button>
+            <button id="delete-channel-type-button">Delete Selected Channel Type</button>
         </div>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
