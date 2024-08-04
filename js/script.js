@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 movingHeads = data.moving_heads || [];
                 channelTypes = data.channel_types || [];
+                updateDropdowns();
                 if (document.getElementById('moving-heads-list') && document.getElementById('channel-types-list')) {
                     updateLists();
                 }
@@ -29,7 +30,101 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    function updateLists() {
+    function updateDropdowns() {
+        const sourceDropdown = document.getElementById('source-moving-head');
+        const destinationDropdown = document.getElementById('destination-moving-head');
+
+        if (sourceDropdown && destinationDropdown) {
+            sourceDropdown.innerHTML = '<option value="">Select Source Moving Head</option>';
+            destinationDropdown.innerHTML = '<option value="">Select Destination Moving Head</option>';
+
+            movingHeads.forEach(movingHead => {
+                const option = document.createElement('option');
+                option.value = movingHead.name;
+                option.textContent = movingHead.name;
+                sourceDropdown.appendChild(option.cloneNode(true));
+                destinationDropdown.appendChild(option);
+            });
+
+            sourceDropdown.addEventListener('change', () => updateChannels('source'));
+            destinationDropdown.addEventListener('change', () => updateChannels('destination'));
+        } else {
+            console.error('Dropdown elements are missing.');
+        }
+    }
+
+    function updateChannels(type) {
+        const dropdown = document.getElementById(`${type}-moving-head`);
+        const channelsDiv = document.getElementById(`${type}-channels`);
+        const selectedMovingHead = movingHeads.find(head => head.name === dropdown.value);
+
+        if (channelsDiv) {
+            channelsDiv.innerHTML = '';
+            if (selectedMovingHead) {
+                selectedMovingHead.channels.forEach((channel, index) => {
+                    const p = document.createElement('p');
+                    p.textContent = `Channel ${index + 1}: ${channel}`;
+                    channelsDiv.appendChild(p);
+                });
+            }
+        } else {
+            console.error('Channels div is missing.');
+        }
+    }
+
+    function generateXDMXMap() {
+        const sourceDropdown = document.getElementById('source-moving-head');
+        const destinationDropdown = document.getElementById('destination-moving-head');
+
+        const sourceMovingHead = movingHeads.find(head => head.name === sourceDropdown.value);
+        const destinationMovingHead = movingHeads.find(head => head.name === destinationDropdown.value);
+
+        if (sourceMovingHead && destinationMovingHead) {
+            let csvContent = '';
+
+            sourceMovingHead.channels.forEach((sourceChannel, index) => {
+                const destIndex = destinationMovingHead.channels.indexOf(sourceChannel);
+                const destChannel = destIndex !== -1 ? `Channel ${destIndex + 1}` : `Channel ${99 - index}`;
+                csvContent += `Channel ${index + 1}, ${destChannel}, 1.00, 0\n`;
+            });
+
+            downloadFile('mapping.xdmxmap', csvContent);
+        } else {
+            alert('Please select both source and destination moving heads.');
+        }
+    }
+
+    function downloadFile(filename, content) {
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function setupPasswordPage() {
+        if (passwordForm && passwordInput && cancelButton) {
+            passwordForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                if (passwordInput.value === correctPassword) {
+                    window.location.href = 'edit.html';
+                } else {
+                    alert('Incorrect password. Please try again.');
+                    passwordInput.value = '';
+                }
+            });
+
+            cancelButton.addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+        } else {
+            console.error('Required elements are missing from the password page.');
+        }
+    }
+
+    function setupEditPage() {
         const movingHeadsList = document.getElementById('moving-heads-list');
         const channelTypesList = document.getElementById('channel-types-list');
 
@@ -51,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 channelTypesList.appendChild(option);
             });
 
-            // Enable buttons based on selection
             movingHeadsList.addEventListener('change', () => toggleEditDeleteButtons('moving-heads-list'));
             channelTypesList.addEventListener('change', () => toggleEditDeleteButtons('channel-types-list'));
         } else {
@@ -107,26 +201,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function addMovingHead() {
-        // Implement the add functionality here
-        alert('Add Moving Head functionality not implemented.');
-    }
+    function updateLists() {
+        const movingHeadsList = document.getElementById('moving-heads-list');
+        const channelTypesList = document.getElementById('channel-types-list');
 
-    function addChannelType() {
-        // Implement the add functionality here
-        alert('Add Channel Type functionality not implemented.');
+        if (movingHeadsList && channelTypesList) {
+            movingHeadsList.innerHTML = '';
+            channelTypesList.innerHTML = '';
+
+            movingHeads.forEach(movingHead => {
+                const option = document.createElement('option');
+                option.value = movingHead.name;
+                option.textContent = movingHead.name;
+                movingHeadsList.appendChild(option);
+            });
+
+            channelTypes.forEach(channelType => {
+                const option = document.createElement('option');
+                option.value = channelType;
+                option.textContent = channelType;
+                channelTypesList.appendChild(option);
+            });
+        } else {
+            console.error('List elements are missing.');
+        }
     }
 
     document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
     document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'password.html');
-    document.getElementById('add-moving-head-button')?.addEventListener('click', addMovingHead);
-    document.getElementById('add-channel-type-button')?.addEventListener('click', addChannelType);
-    document.getElementById('edit-moving-head-button')?.addEventListener('click', editMovingHead);
-    document.getElementById('edit-channel-type-button')?.addEventListener('click', editChannelType);
-    document.getElementById('delete-moving-head-button')?.addEventListener('click', deleteMovingHead);
-    document.getElementById('delete-channel-type-button')?.addEventListener('click', deleteChannelType);
 
     if (document.getElementById('source-moving-head') && document.getElementById('destination-moving-head')) {
         loadData();
     }
+
+    if (passwordForm && passwordInput && cancelButton) {
+        setupPasswordPage();
+    }
+
+    if (document.getElementById('moving-heads-list') && document.getElementById('channel-types-list')) {
+        setupEditPage();
+    }
+
+    document.getElementById('add-moving-head-button')?.addEventListener('click', () => addMovingHead());
+    document.getElementById('add-channel-type-button')?.addEventListener('click', () => addChannelType());
 });
+
+function addMovingHead() {
+    // Implement the add functionality here
+    alert('Add Moving Head functionality not implemented.');
+}
+
+function addChannelType() {
+    // Implement the add functionality here
+    alert('Add Channel Type functionality not implemented.');
+}
