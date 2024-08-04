@@ -13,12 +13,13 @@ body {
 table {
     width: 100%;
     margin-bottom: 20px;
-    border-collapse: collapse;
+    border-collapse: collapse; /* Ensures borders are combined */
 }
 
 th, td {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; /* Light border color for table cells */
+    vertical-align: top; /* Aligns contents to the top of the cells */
 }
 
 th {
@@ -46,4 +47,13 @@ th {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+select {
+    width: 100%; /* Makes dropdowns fill their cells */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+#source-channels, #destination-channels {
+    margin-top: 10px; /* Adds some space above channel lists */
 }
