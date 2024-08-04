@@ -5,58 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index Page</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-        }
-        .dropdown-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .dropdown {
-            margin: 0 10px;
-        }
-        #buttons-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-        #edit-button {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-        }
-        .channel-list {
-            margin-top: 10px;
-        }
-    </style>
 </head>
 <body>
-    <button id="edit-button">Edit</button>
     <div class="container">
+        <button id="edit-button">Edit</button>
         <div class="dropdown-container">
-            <label for="source-moving-head">Source Moving Head:</label>
-            <select id="source-moving-head" class="dropdown"></select>
-            <div id="source-channels" class="channel-list"></div>
+            <select id="source-moving-head">
+                <option>Select Source Moving Head</option>
+            </select>
+            <select id="destination-moving-head">
+                <option>Select Destination Moving Head</option>
+            </select>
         </div>
-        <div class="dropdown-container">
-            <label for="dest-moving-head">Destination Moving Head:</label>
-            <select id="dest-moving-head" class="dropdown"></select>
-            <div id="dest-channels" class="channel-list"></div>
-        </div>
+        <div id="source-channels"></div>
+        <div id="destination-channels"></div>
+        <button id="generate-button">Generate XDMXMap</button>
     </div>
-    <div id="buttons-container">
-        <button id="generate-button">Generate</button>
-    </div>
+    <script src="js/script.js"></script>
 </body>
 </html>
