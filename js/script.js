@@ -102,32 +102,27 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(url);
     }
 
-    if (document.getElementById('source-moving-head') && document.getElementById('destination-moving-head')) {
-        loadData();
+    function setupPasswordPage() {
+        if (passwordForm && passwordInput && cancelButton) {
+            passwordForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                if (passwordInput.value === correctPassword) {
+                    window.location.href = 'edit.html';
+                } else {
+                    alert('Incorrect password. Please try again.');
+                    passwordInput.value = '';
+                }
+            });
+
+            cancelButton.addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+        } else {
+            console.error('Required elements are missing from the password page.');
+        }
     }
 
-    document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
-    document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'password.html');
-
-    // Password page functionality
-    if (passwordForm && passwordInput && cancelButton) {
-        passwordForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            if (passwordInput.value === correctPassword) {
-                window.location.href = 'edit.html';
-            } else {
-                alert('Incorrect password. Please try again.');
-                passwordInput.value = '';
-            }
-        });
-
-        cancelButton.addEventListener('click', function() {
-            window.location.href = 'index.html';
-        });
-    }
-
-    // Edit page functionality
-    function updateLists() {
+    function setupEditPage() {
         const movingHeadsList = document.getElementById('moving-heads-list');
         const channelTypesList = document.getElementById('channel-types-list');
 
@@ -202,6 +197,21 @@ document.addEventListener('DOMContentLoaded', () => {
             channelTypes = channelTypes.filter(type => type !== selectedType);
             updateLists();
         }
+    }
+
+    document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
+    document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'password.html');
+
+    if (document.getElementById('source-moving-head') && document.getElementById('destination-moving-head')) {
+        loadData();
+    }
+
+    if (passwordForm && passwordInput && cancelButton) {
+        setupPasswordPage();
+    }
+
+    if (document.getElementById('moving-heads-list') && document.getElementById('channel-types-list')) {
+        setupEditPage();
     }
 
     document.getElementById('add-moving-head-button')?.addEventListener('click', () => alert('Add Moving Head functionality not implemented.'));
