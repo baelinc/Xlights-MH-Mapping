@@ -5,26 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .container div {
+            width: 48%;
+        }
+        .edit-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Main Page</h1>
     
-    <button onclick="window.location.href='edit.html'">Edit Moving Heads and Channel Types</button>
+    <button class="edit-button" onclick="window.location.href='edit.html'">Edit Moving Heads and Channel Types</button>
     
-    <div>
-        <label for="source-moving-head">Source Moving Head:</label>
-        <select id="source-moving-head" onchange="updateChannels('source')">
-            <option value="">Select Source Moving Head</option>
-        </select>
-        <div id="source-channels"></div>
-    </div>
-    
-    <div>
-        <label for="destination-moving-head">Destination Moving Head:</label>
-        <select id="destination-moving-head" onchange="updateChannels('destination')">
-            <option value="">Select Destination Moving Head</option>
-        </select>
-        <div id="destination-channels"></div>
+    <div class="container">
+        <div>
+            <label for="source-moving-head">Source Moving Head:</label>
+            <select id="source-moving-head" onchange="updateChannels('source')">
+                <option value="">Select Source Moving Head</option>
+            </select>
+            <div id="source-channels"></div>
+        </div>
+        
+        <div>
+            <label for="destination-moving-head">Destination Moving Head:</label>
+            <select id="destination-moving-head" onchange="updateChannels('destination')">
+                <option value="">Select Destination Moving Head</option>
+            </select>
+            <div id="destination-channels"></div>
+        </div>
     </div>
     
     <button onclick="generateXDMXMap()">Generate XDMX Map</button>
