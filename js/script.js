@@ -18,7 +18,7 @@ const PASSWORD = "admin"; // Hardcoded password for simplicity
 async function loadData() {
     try {
         // Adjust the path to point to the data folder
-        const response = await fetch('data/moving_heads_channel_types.json');
+        const response = await fetch('/data/moving_heads_channel_types.json');
         if (!response.ok) throw new Error('Network response was not ok.');
         const jsonData = await response.json();
         console.log('Loaded data:', jsonData);  // Debug: Check if data is loaded correctly
