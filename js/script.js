@@ -1,8 +1,12 @@
 // Constants
-const PASSWORD = "evans"; // Change this to your desired password
+const PASSWORD = "evans"; // Set this to your desired password
 
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('main')) {
+        loadData();
+        showTab('main');
+    }
+    if (document.getElementById('manage')) {
         loadData();
         showTab('manage');
     }
@@ -103,11 +107,11 @@ function addMovingHead(event) {
         };
         window.data.moving_heads.push(movingHead);
         saveData();
-        window.location.href = 'index.html';
+        window.location.href = 'edit.html';
     }
 }
 
-// Edit an existing moving head
+// Update an existing moving head
 function updateMovingHead(event) {
     event.preventDefault();
 
@@ -119,15 +123,15 @@ function updateMovingHead(event) {
 
     const name = document.getElementById('edit-moving-head-name').value;
     const channels = document.getElementById('edit-moving-head-channels').value;
+    const index = document.getElementById('edit-moving-head-form').dataset.index;
 
-    if (name && channels) {
-        const index = window.data.moving_heads.findIndex(head => head.name === name);
-        if (index !== -1) {
-            window.data.moving_heads[index].name = name;
-            window.data.moving_heads[index].channels = channels.split(',').map(ch => ch.trim());
-            saveData();
-            window.location.href = 'index.html';
-        }
+    if (name && channels && index !== undefined) {
+        window.data.moving_heads[index] = {
+            name,
+            channels: channels.split(',').map(ch => ch.trim())
+        };
+        saveData();
+        window.location.href = 'edit.html';
     }
 }
 
@@ -145,11 +149,11 @@ function addChannelType(event) {
     if (type) {
         window.data.channel_types.push(type);
         saveData();
-        window.location.href = 'index.html';
+        window.location.href = 'edit.html';
     }
 }
 
-// Edit an existing channel type
+// Update an existing channel type
 function updateChannelType(event) {
     event.preventDefault();
 
@@ -160,12 +164,74 @@ function updateChannelType(event) {
     }
 
     const type = document.getElementById('edit-channel-type-name').value;
-    const index = window.data.channel_types.indexOf(type);
-    if (index !== -1) {
+    const index = document.getElementById('edit-channel-type-form').dataset.index;
+
+    if (type && index !== undefined) {
         window.data.channel_types[index] = type;
         saveData();
-        window.location.href = 'index.html';
+        window.location.href = 'edit.html';
     }
+}
+
+// Delete a moving head
+function deleteMovingHead() {
+    const password = prompt('Enter password to delete a moving head:');
+    if (password !== PASSWORD) {
+        alert('Incorrect password');
+        return;
+    }
+
+    const list = document.getElementById('moving-heads-list');
+    const selected = list.querySelector('li.selected');
+    if (selected) {
+        const index = selected.dataset.index;
+        window.data.moving_heads.splice(index, 1);
+        saveData();
+        populateMovingHeads();
+    }
+}
+
+// Delete a channel type
+function deleteChannelType() {
+    const password = prompt('Enter password to delete a channel type:');
+    if (password !== PASSWORD) {
+        alert('Incorrect password');
+        return;
+    }
+
+    const list = document.getElementById('channel-types-list');
+    const selected = list.querySelector('li.selected');
+    if (selected) {
+        const index = selected.dataset.index;
+        window.data.channel_types.splice(index, 1);
+        saveData();
+        populateChannelTypes();
+    }
+}
+
+// Show add moving head form
+function showAddMovingHeadForm() {
+    window.location.href = 'add-moving-head.html';
+}
+
+// Show add channel type form
+function showAddChannelTypeForm() {
+    window.location.href = 'add-channel-type.html';
+}
+
+// Edit moving head
+function editMovingHead(movingHead) {
+    document.getElementById('edit-moving-head-name').value = movingHead.name;
+    document.getElementById('edit-moving-head-channels').value = movingHead.channels.join(', ');
+    document.getElementById('edit-moving-head-form').dataset.index = window.data.moving_heads.findIndex(head => head.name === movingHead.name);
+    window.location.href = 'edit-moving-head.html';
+}
+
+// Edit channel type
+function editChannelType(type) {
+    document.getElementById('edit-channel-type-name').value = type;
+    document.getElementById('edit-channel-type-form').dataset.index = window.data.channel_types.indexOf(type);
+    window.location.href = 'edit-channel-type.html';
 }
 
 // Save data to a JSON file
