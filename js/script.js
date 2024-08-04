@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (passwordForm && passwordInput && cancelButton) {
         passwordForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the traditional way
+            event.preventDefault();
             if (passwordInput.value === correctPassword) {
-                window.location.href = 'index.html'; // Redirect to index page
+                window.location.href = 'edit.html'; // Redirect to edit page
             } else {
                 alert('Incorrect password. Please try again.');
-                passwordInput.value = ''; // Clear the password field
+                passwordInput.value = '';
             }
         });
 
