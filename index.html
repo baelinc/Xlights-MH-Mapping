@@ -7,48 +7,37 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Moving Head Manager</h1>
-
-    <!-- Tabs -->
     <div id="tabs">
-        <button class="tablink" onclick="openTab(event, 'Manage')">Manage</button>
-        <button class="tablink" onclick="openTab(event, 'Edit')">Edit</button>
-        <button class="tablink" onclick="openTab(event, 'ChannelTypes')">Channel Types</button>
+        <button onclick="showTab('manage')">Manage</button>
+        <button onclick="showTab('edit')">Edit</button>
+        <button onclick="showTab('channel-types')">Channel Types</button>
     </div>
 
-    <!-- Tab Contents -->
-    <div id="Manage" class="tabcontent">
+    <div id="manage" class="tab-content">
         <h2>Manage Moving Heads</h2>
-        <div>
-            <select id="sourceMovingHead" onchange="populateChannels('source')"></select>
-            <ul id="sourceChannels"></ul>
-        </div>
-        <div>
-            <select id="targetMovingHead" onchange="populateChannels('target')"></select>
-            <ul id="targetChannels"></ul>
-        </div>
-        <button onclick="generateFile()">Generate File</button>
+        <label for="source-moving-head">Source Moving Head:</label>
+        <select id="source-moving-head" onchange="updateChannels()">
+            <option value="">Select Source Moving Head</option>
+        </select>
+        <br>
+        <label for="destination-moving-head">Destination Moving Head:</label>
+        <select id="destination-moving-head" onchange="updateChannels()">
+            <option value="">Select Destination Moving Head</option>
+        </select>
+        <br>
+        <button onclick="generateXDMXMap()">Generate XDMX Map</button>
+        <pre id="xdmx-map-output"></pre>
     </div>
 
-    <!-- Login Form for Edit Tabs -->
-    <div id="editLogin" class="tabcontent">
-        <h2>Login to Edit</h2>
-        <form id="loginForm">
-            <input type="password" id="password" placeholder="Enter password">
-            <button type="submit">Login</button>
-        </form>
-    </div>
-
-    <!-- Edit Tab Contents -->
-    <div id="Edit" class="tabcontent" style="display:none;">
+    <div id="edit" class="tab-content">
         <h2>Edit Moving Heads</h2>
-        <ul id="movingHeadsList"></ul>
+        <ul id="moving-heads-list"></ul>
         <button onclick="addMovingHead()">Add Moving Head</button>
     </div>
 
-    <div id="ChannelTypes" class="tabcontent" style="display:none;">
+    <div id="channel-types" class="tab-content">
         <h2>Edit Channel Types</h2>
-        <ul id="channelTypesList"></ul>
+        <ul id="channel-types-list"></ul>
         <button onclick="addChannelType()">Add Channel Type</button>
     </div>
 
