@@ -3,34 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moving Head Editor</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Index Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <h1>Moving Head Editor</h1>
-        <div id="dropdown-container">
-            <div id="dropdowns">
-                <div class="dropdown-group">
-                    <label for="source-moving-head">Source Moving Head:</label>
-                    <select id="source-moving-head">
-                        <option value="">Select Source Moving Head</option>
-                    </select>
-                    <div id="source-channels"></div>
-                </div>
-                <div class="dropdown-group">
-                    <label for="dest-moving-head">Destination Moving Head:</label>
-                    <select id="dest-moving-head">
-                        <option value="">Select Destination Moving Head</option>
-                    </select>
-                    <div id="dest-channels"></div>
-                </div>
+        <div class="dropdowns">
+            <div class="dropdown-container">
+                <label for="source-moving-head">Source Moving Head</label>
+                <select id="source-moving-head">
+                    <option value="">Select Source Moving Head</option>
+                </select>
+                <div id="source-channels"></div>
+            </div>
+            <div class="dropdown-container">
+                <label for="dest-moving-head">Destination Moving Head</label>
+                <select id="dest-moving-head">
+                    <option value="">Select Destination Moving Head</option>
+                </select>
+                <div id="dest-channels"></div>
             </div>
         </div>
-        <button id="generate-button">Generate XDMX Map</button>
+        <div class="buttons">
+            <button id="generate-button">Generate XDMX Map</button>
+            <button id="edit-button">Edit Data</button>
+        </div>
     </div>
-    <a href="edit.html" id="edit-button">Edit</a>
-
-    <script src="script.js"></script>
 </body>
 </html>
