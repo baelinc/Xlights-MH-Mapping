@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Moving Heads and Channel Types</title>
+    <title>Edit Data</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
-    <div class="container">
+    <div id="main-content">
         <h1>Edit Moving Heads and Channel Types</h1>
-        <form id="edit-form">
-            <h2>Manage Moving Heads</h2>
-            <select id="moving-head-select">
-                <!-- Options will be populated by JavaScript -->
-            </select>
-            <button type="button" id="add-moving-head">Add Moving Head</button>
-            <button type="button" id="edit-moving-head">Edit Moving Head</button>
-            <button type="button" id="delete-moving-head">Delete Moving Head</button>
-
-            <h2>Manage Channel Types</h2>
-            <select id="channel-type-select">
-                <!-- Options will be populated by JavaScript -->
-            </select>
-            <button type="button" id="add-channel-type">Add Channel Type</button>
-            <button type="button" id="edit-channel-type">Edit Channel Type</button>
-            <button type="button" id="delete-channel-type">Delete Channel Type</button>
-        </form>
-        <button id="back-button">Back to Main</button>
+        <div id="edit-container">
+            <div id="moving-heads-section">
+                <h2>Moving Heads</h2>
+                <select id="moving-heads-list" size="10"></select>
+                <button id="add-moving-head-button">Add Moving Head</button>
+                <button id="edit-moving-head-button" disabled>Edit Moving Head</button>
+                <button id="delete-moving-head-button" disabled>Delete Moving Head</button>
+            </div>
+            <div id="channel-types-section">
+                <h2>Channel Types</h2>
+                <select id="channel-types-list" size="10"></select>
+                <button id="add-channel-type-button">Add Channel Type</button>
+                <button id="edit-channel-type-button" disabled>Edit Channel Type</button>
+                <button id="delete-channel-type-button" disabled>Delete Channel Type</button>
+            </div>
+        </div>
     </div>
-    <script src="js/script.js"></script>
 </body>
 </html>
