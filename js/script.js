@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = 'edit.html'; // Redirect to edit page
             } else {
                 alert('Incorrect password. Please try again.');
-                passwordInput.value = '';
+                passwordInput.value = ''; // Clear the input field
             }
         });
 
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Required elements are missing from the password page.');
     }
 
+    // Handle data loading
     const dataFilePath = 'data/moving_heads_channel_types.json';
     let movingHeads = [];
     let channelTypes = [];
@@ -50,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const destinationDropdown = document.getElementById('destination-moving-head');
 
         if (sourceDropdown && destinationDropdown) {
-            sourceDropdown.innerHTML = '<option value="" disabled selected>Select Source Moving Head</option>';
-            destinationDropdown.innerHTML = '<option value="" disabled selected>Select Destination Moving Head</option>';
+            sourceDropdown.innerHTML = '<option value="">Select Source Moving Head</option>';
+            destinationDropdown.innerHTML = '<option value="">Select Destination Moving Head</option>';
 
             movingHeads.forEach(movingHead => {
                 const option = document.createElement('option');
@@ -81,8 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     p.textContent = `Channel ${index + 1}: ${channel}`;
                     channelsDiv.appendChild(p);
                 });
-            } else {
-                channelsDiv.textContent = 'No channels available';
             }
         } else {
             console.error('Channels div is missing.');
@@ -126,8 +125,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
-    document.getElementById('edit-button')?.addEventListener('click', () => {
-        // Redirect to password page before accessing edit.html
-        window.location.href = 'password.html';
-    });
+    document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'password.html');
 });
