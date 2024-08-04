@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Data</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="main-content">
+        <h1>Edit Moving Heads and Channel Types</h1>
+
+        <!-- Moving Heads Section -->
+        <div id="moving-heads-section">
+            <h2>Moving Heads</h2>
+            <select id="moving-heads-list" size="10"></select>
+            <button id="edit-moving-head-button" disabled>Edit Moving Head</button>
+            <button id="delete-moving-head-button" disabled>Delete Moving Head</button>
+            <button id="add-moving-head-button">Add Moving Head</button>
+        </div>
+
+        <!-- Channel Types Section -->
+        <div id="channel-types-section">
+            <h2>Channel Types</h2>
+            <select id="channel-types-list" size="10"></select>
+            <button id="edit-channel-type-button" disabled>Edit Channel Type</button>
+            <button id="delete-channel-type-button" disabled>Delete Channel Type</button>
+            <button id="add-channel-type-button">Add Channel Type</button>
+        </div>
+
+        <button id="save-changes-button">Save Changes</button>
+        <button id="back-button">Back to Index</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dataFilePath = 'data/moving_heads_channel_types.json';
+            let movingHeads = [];
+            let channelTypes = [];
+
+            function loadData() {
+                fetch(dataFilePath)
+                    .then(response => response.json())
+                    .then(data => {
+                        movingHeads = data.moving_heads || [];
+                        channelTypes = data.channel_types || [];
+                        updateLists();
+                    })
+                    .catch(error => {
+                        console.error('Error loading data:', error);
+                    });
+            }
+
+            function updateLists() {
+                const movingHeadsList = document.getElementById('moving-heads-list');
+                const channelTypesList = document.getElementById('channel-types-list');
+
+                movingHeadsList.innerHTML = '';
+                channelTypesList.innerHTML = '';
+
+                movingHeads.forEach(movingHead => {
+                    const option = document.createElement('option');
+                    option.value = movingHead.name;
+                    option.textContent = movingHead.name;
+                    movingHeadsList.appendChild(option);
+                });
+
+                channelTypes.forEach(channelType => {
+                    const option = document.createElement('option');
+                    option.value = channelType;
+                    option.textContent = channelType;
+                    channelTypesList.appendChild(option);
+                });
+
+                document.getElementById('edit-moving-head-button').disabled = !movingHeadsList.value;
+                document.getElementById('delete-moving-head-button').disabled = !movingHeadsList.value;
+                document.getElementById('edit-channel-type-button').disabled = !channelTypesList.value;
+                document.getElementById('delete-channel-type-button').disabled = !channelTypesList.value;
+            }
+
+            function saveData() {
+                const updatedData = {
+                    moving_heads: movingHeads,
+                    channel_types: channelTypes
+                };
+
+                fetch(dataFilePath, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Data saved successfully.');
+                    } else {
+                        throw new Error('Failed to save data.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error saving data:', error);
+                    alert('Failed to save data. Please check the console for errors.');
+                });
+            }
+
+            function addMovingHead() {
+                const name = prompt('Enter the name of the new moving head:');
+                if (name && !movingHeads.find(head => head.name === name)) {
+                    const channels = prompt('Enter channels separated by commas:').split(',').map(channel => channel.trim());
+                    movingHeads.push({ name, channels });
+                    updateLists();
+                } else {
+                    alert('Invalid name or moving head already exists.');
+                }
+            }
+
+            function editMovingHead() {
+                const selectedName = document.getElementById('moving-heads-list').value;
+                const movingHead = movingHeads.find(head => head.name === selectedName);
+                if (movingHead) {
+                    const newName = prompt('Enter the new name for the moving head:', movingHead.name);
+                    if (newName && !movingHeads.find(head => head.name === newName)) {
+                        movingHead.name = newName;
+                        movingHead.channels = prompt('Enter new channels separated by commas:').split(',').map(channel => channel.trim());
+                        updateLists();
+                    } else {
+                        alert('Invalid name or moving head already exists.');
+                    }
+                }
+            }
+
+            function deleteMovingHead() {
+                const selectedName = document.getElementById('moving-heads-list').value;
+                movingHeads = movingHeads.filter(head => head.name !== selectedName);
+                updateLists();
+            }
+
+            function addChannelType() {
+                const type = prompt('Enter the name of the new channel type:');
+                if (type && !channelTypes.includes(type)) {
+                    channelTypes.push(type);
+                    updateLists();
+                } else {
+                    alert('Invalid type or channel type already exists.');
+                }
+            }
+
+            function editChannelType() {
+                const selectedType = document.getElementById('channel-types-list').value;
+                if (selectedType) {
+                    const newType = prompt('Enter the new name for the channel type:', selectedType);
+                    if (newType && !channelTypes.includes(newType)) {
+                        channelTypes = channelTypes.map(type => type === selectedType ? newType : type);
+                        updateLists();
+                    } else {
+                        alert('Invalid name or channel type already exists.');
+                    }
+                }
+            }
+
+            function deleteChannelType() {
+                const selectedType = document.getElementById('channel-types-list').value;
+                channelTypes = channelTypes.filter(type => type !== selectedType);
+                updateLists();
+            }
+
+            document.getElementById('add-moving-head-button').addEventListener('click', addMovingHead);
+            document.getElementById('edit-moving-head-button').addEventListener('click', editMovingHead);
+            document.getElementById('delete-moving-head-button').addEventListener('click', deleteMovingHead);
+            document.getElementById('add-channel-type-button').addEventListener('click', addChannelType);
+            document.getElementById('edit-channel-type-button').addEventListener('click', editChannelType);
+            document.getElementById('delete-channel-type-button').addEventListener('click', deleteChannelType);
+            document.getElementById('save-changes-button').addEventListener('click', saveData);
+            document.getElementById('back-button').addEventListener('click', () => window.location.href = 'index.html');
+
+            loadData();
+        });
+    </script>
+</body>
+</html>
