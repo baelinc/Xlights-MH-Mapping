@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Page</title>
+    <title>Edit Moving Heads and Channel Types</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
         <h1>Edit Moving Heads and Channel Types</h1>
-        <div>
-            <h2>Moving Heads</h2>
-            <ul id="moving-heads-list"></ul>
-            <button id="add-moving-head-button">Add Moving Head</button>
-            <button id="edit-moving-head-button">Edit Moving Head</button>
-            <button id="delete-moving-head-button">Delete Moving Head</button>
-        </div>
-        <div>
-            <h2>Channel Types</h2>
-            <ul id="channel-types-list"></ul>
-            <button id="add-channel-type-button">Add Channel Type</button>
-            <button id="edit-channel-type-button">Edit Channel Type</button>
-            <button id="delete-channel-type-button">Delete Channel Type</button>
-        </div>
-        <script src="js/script.js"></script>
+        <form id="edit-form">
+            <h2>Manage Moving Heads</h2>
+            <select id="moving-head-select">
+                <!-- Options will be populated by JavaScript -->
+            </select>
+            <button type="button" id="add-moving-head">Add Moving Head</button>
+            <button type="button" id="edit-moving-head">Edit Moving Head</button>
+            <button type="button" id="delete-moving-head">Delete Moving Head</button>
+
+            <h2>Manage Channel Types</h2>
+            <select id="channel-type-select">
+                <!-- Options will be populated by JavaScript -->
+            </select>
+            <button type="button" id="add-channel-type">Add Channel Type</button>
+            <button type="button" id="edit-channel-type">Edit Channel Type</button>
+            <button type="button" id="delete-channel-type">Delete Channel Type</button>
+        </form>
+        <button id="back-button">Back to Main</button>
     </div>
+    <script src="js/script.js"></script>
 </body>
 </html>
