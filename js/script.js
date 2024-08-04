@@ -55,8 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const destinationDropdown = document.getElementById('destination-moving-head');
 
         if (sourceDropdown && destinationDropdown) {
-            sourceDropdown.innerHTML = '';
-            destinationDropdown.innerHTML = '';
+            sourceDropdown.innerHTML = '<option value="">Select Source Moving Head</option>';
+            destinationDropdown.innerHTML = '<option value="">Select Destination Moving Head</option>';
 
             movingHeads.forEach(movingHead => {
                 const option = document.createElement('option');
