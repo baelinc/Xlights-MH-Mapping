@@ -3,42 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moving Head Manager</title>
+    <title>Moving Heads Manager</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div id="tabs">
+        <button onclick="showTab('main')">Main</button>
         <button onclick="showTab('manage')">Manage</button>
-        <button onclick="showTab('edit')">Edit</button>
-        <button onclick="showTab('channel-types')">Channel Types</button>
     </div>
 
-    <div id="manage" class="tab-content">
-        <h2>Manage Moving Heads</h2>
-        <label for="source-moving-head">Source Moving Head:</label>
-        <select id="source-moving-head" onchange="updateChannels()">
-            <option value="">Select Source Moving Head</option>
-        </select>
-        <br>
-        <label for="destination-moving-head">Destination Moving Head:</label>
-        <select id="destination-moving-head" onchange="updateChannels()">
-            <option value="">Select Destination Moving Head</option>
-        </select>
-        <br>
+    <div id="main" class="tab-content">
+        <h1>Main Page</h1>
+        <div>
+            <label for="source-moving-head">Source Moving Head:</label>
+            <select id="source-moving-head" onchange="updateChannels()">
+                <option value="">Select Source Moving Head</option>
+            </select>
+        </div>
+        <div>
+            <label for="destination-moving-head">Destination Moving Head:</label>
+            <select id="destination-moving-head" onchange="updateChannels()">
+                <option value="">Select Destination Moving Head</option>
+            </select>
+        </div>
         <button onclick="generateXDMXMap()">Generate XDMX Map</button>
         <pre id="xdmx-map-output"></pre>
     </div>
 
-    <div id="edit" class="tab-content">
-        <h2>Edit Moving Heads</h2>
-        <ul id="moving-heads-list"></ul>
-        <button onclick="addMovingHead()">Add Moving Head</button>
-    </div>
+    <div id="manage" class="tab-content">
+        <h1>Manage Page</h1>
+        <button onclick="window.location.href='add-moving-head.html'">Add Moving Head</button>
+        <button onclick="window.location.href='add-channel-type.html'">Add Channel Type</button>
+        <button onclick="deleteMovingHead()">Delete Moving Head</button>
+        <button onclick="deleteChannelType()">Delete Channel Type</button>
 
-    <div id="channel-types" class="tab-content">
-        <h2>Edit Channel Types</h2>
+        <h2>Moving Heads</h2>
+        <ul id="moving-heads-list"></ul>
+
+        <h2>Channel Types</h2>
         <ul id="channel-types-list"></ul>
-        <button onclick="addChannelType()">Add Channel Type</button>
     </div>
 
     <script src="js/script.js"></script>
