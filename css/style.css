@@ -1,47 +1,68 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
 }
 
 .container {
-    width: 80%;
-    margin: 0 auto;
+    width: 90%;
+    max-width: 800px;
+    margin: 20px;
     padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
 }
 
-#edit-button {
-    position: fixed;
-    top: 10px;
-    right: 10px;
+#dropdown-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#dropdowns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dropdown-group {
+    width: 45%;
 }
 
 #generate-button {
-    margin-top: 20px;
-}
-
-#source-channels, #dest-channels {
-    margin-top: 20px;
-}
-
-#edit-content {
-    margin-top: 20px;
-}
-
-#moving-heads-list, #channel-types-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#moving-heads-list li, #channel-types-list li {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    padding: 5px;
-    border: 1px solid #ddd;
-    margin-bottom: 5px;
 }
 
-#moving-heads-list li:hover, #channel-types-list li:hover {
-    background-color: #f0f0f0;
+#generate-button:hover {
+    background-color: #0056b3;
 }
 
-#password-section {
-    margin-bottom: 20px;
+#edit-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+#edit-button:hover {
+    background-color: #218838;
 }
