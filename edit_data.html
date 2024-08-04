@@ -106,9 +106,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Authentication check
             if (sessionStorage.getItem('authenticated') !== 'true') {
-                document.getElementById('password-check').style.display = 'block';
+                window.location.href = 'password.html';
                 return;
             }
 
