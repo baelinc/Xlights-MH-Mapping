@@ -6,46 +6,58 @@
     <title>Index Page</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .dropdown-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
+        body {
+            font-family: Arial, sans-serif;
         }
-        .dropdown-group {
-            flex: 1;
-            margin: 0 10px;
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            text-align: left;
+        }
+        #edit-button {
+            float: right;
+            margin: 10px;
         }
         #generate-button {
             display: block;
             margin: 20px auto;
-        }
-        #edit-button {
-            float: right;
-        }
-        #source-channels, #destination-channels {
-            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <button id="edit-button">Edit</button>
-        <div class="dropdown-container">
-            <div class="dropdown-group">
-                <label for="source-moving-head">Source Moving Head</label>
-                <select id="source-moving-head">
-                    <option value="">Select Source Moving Head</option>
-                </select>
-                <div id="source-channels"></div>
-            </div>
-            <div class="dropdown-group">
-                <label for="destination-moving-head">Destination Moving Head</label>
-                <select id="destination-moving-head">
-                    <option value="">Select Destination Moving Head</option>
-                </select>
-                <div id="destination-channels"></div>
-            </div>
-        </div>
+        <table>
+            <tr>
+                <th>Source Moving Head</th>
+                <th>Destination Moving Head</th>
+            </tr>
+            <tr>
+                <td>
+                    <select id="source-moving-head">
+                        <option value="">Select Source Moving Head</option>
+                    </select>
+                    <div id="source-channels"></div>
+                </td>
+                <td>
+                    <select id="destination-moving-head">
+                        <option value="">Select Destination Moving Head</option>
+                    </select>
+                    <div id="destination-channels"></div>
+                </td>
+            </tr>
+        </table>
         <button id="generate-button">Generate XDMXMap</button>
     </div>
     <script src="js/script.js"></script>
