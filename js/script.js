@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const correctPassword = 'admin';
     const passwordForm = document.getElementById('password-form');
-    const passwordInput = document.getElementById('password-input');
+    const passwordInput = document.getElementById('password');
     const cancelButton = document.getElementById('cancel-button');
 
-    // Handle password form submission
     if (passwordForm && passwordInput && cancelButton) {
         passwordForm.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Handle cancel button click
         cancelButton.addEventListener('click', function() {
             window.location.href = 'index.html'; // Redirect to index page
         });
@@ -28,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let movingHeads = [];
     let channelTypes = [];
 
-    // Function to load data from JSON file
     function loadData() {
         fetch(dataFilePath)
             .then(response => {
@@ -48,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Function to update dropdowns with moving head options
     function updateDropdowns() {
         const sourceDropdown = document.getElementById('source-moving-head');
         const destinationDropdown = document.getElementById('destination-moving-head');
@@ -72,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to update channel lists based on the selected moving head
     function updateChannels(type) {
         const dropdown = document.getElementById(`${type}-moving-head`);
         const channelsDiv = document.getElementById(`${type}-channels`);
@@ -94,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to generate the XDMXMap file
     function generateXDMXMap() {
         const sourceDropdown = document.getElementById('source-moving-head');
         const destinationDropdown = document.getElementById('destination-moving-head');
@@ -117,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to download the generated file
     function downloadFile(filename, content) {
         const blob = new Blob([content], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -128,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(url);
     }
 
-    // Initialize the page
     if (document.getElementById('source-moving-head') && document.getElementById('destination-moving-head')) {
         loadData();
     }
