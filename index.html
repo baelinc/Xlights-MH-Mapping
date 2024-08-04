@@ -3,35 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Moving Head Mapping</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <button id="edit-button" class="edit-button">Edit</button>
-    <div class="main-container">
-        <table>
-            <tr>
-                <td><label for="source-moving-head">Source Moving Head</label></td>
-                <td><label for="destination-moving-head">Destination Moving Head</label></td>
-            </tr>
-            <tr>
-                <td>
-                    <select id="source-moving-head">
-                        <option value="" disabled selected>Select Source Moving Head</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="destination-moving-head">
-                        <option value="" disabled selected>Select Destination Moving Head</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td id="source-channels"></td>
-                <td id="destination-channels"></td>
-            </tr>
-        </table>
-        <button id="generate-button">Generate XDMX Map</button>
+    <div class="container">
+        <h1>Moving Head Mapping</h1>
+        <div id="main-content">
+            <table>
+                <tr>
+                    <th>Source Moving Head</th>
+                    <th>Destination Moving Head</th>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="source-moving-head">
+                            <option value="">Select Source Moving Head</option>
+                        </select>
+                        <div id="source-channels"></div>
+                    </td>
+                    <td>
+                        <select id="destination-moving-head">
+                            <option value="">Select Destination Moving Head</option>
+                        </select>
+                        <div id="destination-channels"></div>
+                    </td>
+                </tr>
+            </table>
+            <button id="generate-button">Generate XDMX Map</button>
+        </div>
+        <button id="edit-button">Edit</button>
     </div>
     <script src="js/script.js"></script>
 </body>
