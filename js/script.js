@@ -125,6 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupEditPage() {
         const movingHeadsList = document.getElementById('moving-heads-list');
         const channelTypesList = document.getElementById('channel-types-list');
+        const editMovingHeadButton = document.getElementById('edit-moving-head-button');
+        const deleteMovingHeadButton = document.getElementById('delete-moving-head-button');
+        const editChannelTypeButton = document.getElementById('edit-channel-type-button');
+        const deleteChannelTypeButton = document.getElementById('delete-channel-type-button');
 
         if (movingHeadsList && channelTypesList) {
             movingHeadsList.innerHTML = '';
@@ -146,6 +150,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             movingHeadsList.addEventListener('change', () => toggleEditDeleteButtons('moving-heads-list'));
             channelTypesList.addEventListener('change', () => toggleEditDeleteButtons('channel-types-list'));
+
+            if (editMovingHeadButton) {
+                editMovingHeadButton.addEventListener('click', editMovingHead);
+            }
+            if (deleteMovingHeadButton) {
+                deleteMovingHeadButton.addEventListener('click', deleteMovingHead);
+            }
+            if (editChannelTypeButton) {
+                editChannelTypeButton.addEventListener('click', editChannelType);
+            }
+            if (deleteChannelTypeButton) {
+                deleteChannelTypeButton.addEventListener('click', deleteChannelType);
+            }
         } else {
             console.error('List elements are missing.');
         }
@@ -242,8 +259,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('add-moving-head-button')?.addEventListener('click', () => alert('Add Moving Head functionality not implemented.'));
     document.getElementById('add-channel-type-button')?.addEventListener('click', () => alert('Add Channel Type functionality not implemented.'));
-    document.getElementById('edit-moving-head-button')?.addEventListener('click', editMovingHead);
-    document.getElementById('edit-channel-type-button')?.addEventListener('click', editChannelType);
-    document.getElementById('delete-moving-head-button')?.addEventListener('click', deleteMovingHead);
-    document.getElementById('delete-channel-type-button')?.addEventListener('click', deleteChannelType);
 });
