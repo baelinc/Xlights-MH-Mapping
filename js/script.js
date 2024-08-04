@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 movingHeads = data.moving_heads || [];
                 channelTypes = data.channel_types || [];
                 updateDropdowns();
-                updateChannelTypesList();
             })
             .catch(error => {
                 console.error('Error loading data:', error);
@@ -85,54 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             console.error('Channels div is missing.');
-        }
-    }
-
-    function updateChannelTypesList() {
-        const listbox = document.getElementById('channel-types-list');
-        if (listbox) {
-            listbox.innerHTML = '';
-
-            channelTypes.forEach(type => {
-                const listItem = document.createElement('li');
-                listItem.textContent = type;
-                listItem.addEventListener('dblclick', () => editChannelType(type));
-                listbox.appendChild(listItem);
-            });
-        } else {
-            console.error('Channel types list is missing.');
-        }
-    }
-
-    function addMovingHead(name, numChannels) {
-        movingHeads.push({
-            name,
-            channels: Array.from({ length: numChannels }, (_, i) => `Channel ${i + 1}`)
-        });
-        updateDropdowns();
-    }
-
-    function addChannelType(type) {
-        channelTypes.push(type);
-        updateChannelTypesList();
-    }
-
-    function editChannelType(oldType) {
-        const newType = prompt('Enter new channel type:', oldType);
-        if (newType && newType !== oldType) {
-            const index = channelTypes.indexOf(oldType);
-            if (index !== -1) {
-                channelTypes[index] = newType;
-                updateChannelTypesList();
-            }
-        }
-    }
-
-    function deleteChannelType(type) {
-        const index = channelTypes.indexOf(type);
-        if (index !== -1) {
-            channelTypes.splice(index, 1);
-            updateChannelTypesList();
         }
     }
 
