@@ -1,21 +1,27 @@
 // Password Protection
-const correctPassword = 'admin';
-const passwordForm = document.getElementById('password-form');
-const passwordInput = document.getElementById('password');
-const cancelButton = document.getElementById('cancel-button');
+document.addEventListener('DOMContentLoaded', () => {
+    const correctPassword = 'admin';
+    const passwordForm = document.getElementById('password-form');
+    const passwordInput = document.getElementById('password');
+    const cancelButton = document.getElementById('cancel-button');
 
-passwordForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    if (passwordInput.value === correctPassword) {
-        window.location.href = 'index.html'; // Redirect to main page on correct password
+    if (passwordForm && passwordInput && cancelButton) {
+        passwordForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (passwordInput.value === correctPassword) {
+                window.location.href = 'index.html'; // Redirect to main page on correct password
+            } else {
+                alert('Incorrect password. Please try again.');
+                passwordInput.value = '';
+            }
+        });
+
+        cancelButton.addEventListener('click', function() {
+            window.location.href = 'index.html'; // Redirect to main page on cancel
+        });
     } else {
-        alert('Incorrect password. Please try again.');
-        passwordInput.value = '';
+        console.error('Required elements are missing from the password page.');
     }
-});
-
-cancelButton.addEventListener('click', function() {
-    window.location.href = 'index.html'; // Redirect to main page on cancel
 });
 
 // Data Handling
@@ -49,23 +55,27 @@ function updateDropdowns() {
     const sourceDropdown = document.getElementById('source-moving-head');
     const destinationDropdown = document.getElementById('destination-moving-head');
 
-    sourceDropdown.innerHTML = '';
-    destinationDropdown.innerHTML = '';
+    if (sourceDropdown && destinationDropdown) {
+        sourceDropdown.innerHTML = '';
+        destinationDropdown.innerHTML = '';
 
-    movingHeads.forEach(movingHead => {
-        const option = document.createElement('option');
-        option.value = movingHead.name;
-        option.textContent = movingHead.name;
-        sourceDropdown.appendChild(option.cloneNode(true));
-        destinationDropdown.appendChild(option);
-    });
+        movingHeads.forEach(movingHead => {
+            const option = document.createElement('option');
+            option.value = movingHead.name;
+            option.textContent = movingHead.name;
+            sourceDropdown.appendChild(option.cloneNode(true));
+            destinationDropdown.appendChild(option);
+        });
 
-    sourceDropdown.addEventListener('change', function() {
-        updateChannels('source');
-    });
-    destinationDropdown.addEventListener('change', function() {
-        updateChannels('destination');
-    });
+        sourceDropdown.addEventListener('change', function() {
+            updateChannels('source');
+        });
+        destinationDropdown.addEventListener('change', function() {
+            updateChannels('destination');
+        });
+    } else {
+        console.error('Dropdown elements are missing.');
+    }
 }
 
 // Update channels display based on selected moving head
@@ -73,28 +83,36 @@ function updateChannels(type) {
     const dropdown = document.getElementById(`${type}-moving-head`);
     const channelsDiv = document.getElementById(`${type}-channels`);
     const selectedMovingHead = movingHeads.find(head => head.name === dropdown.value);
-    
-    channelsDiv.innerHTML = '';
-    if (selectedMovingHead) {
-        selectedMovingHead.channels.forEach((channel, index) => {
-            const p = document.createElement('p');
-            p.textContent = `Channel ${index + 1}: ${channel}`;
-            channelsDiv.appendChild(p);
-        });
+
+    if (channelsDiv) {
+        channelsDiv.innerHTML = '';
+        if (selectedMovingHead) {
+            selectedMovingHead.channels.forEach((channel, index) => {
+                const p = document.createElement('p');
+                p.textContent = `Channel ${index + 1}: ${channel}`;
+                channelsDiv.appendChild(p);
+            });
+        }
+    } else {
+        console.error('Channels div is missing.');
     }
 }
 
 // Update channel types list
 function updateChannelTypesList() {
     const listbox = document.getElementById('channel-types-list');
-    listbox.innerHTML = '';
+    if (listbox) {
+        listbox.innerHTML = '';
 
-    channelTypes.forEach(type => {
-        const listItem = document.createElement('li');
-        listItem.textContent = type;
-        listItem.addEventListener('dblclick', () => editChannelType(type));
-        listbox.appendChild(listItem);
-    });
+        channelTypes.forEach(type => {
+            const listItem = document.createElement('li');
+            listItem.textContent = type;
+            listItem.addEventListener('dblclick', () => editChannelType(type));
+            listbox.appendChild(listItem);
+        });
+    } else {
+        console.error('Channel types list is missing.');
+    }
 }
 
 // Add a new moving head
