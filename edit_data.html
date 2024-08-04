@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Data</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="main-content">
+    <div id="password-check" style="display:none;">
+        <p>You need to log in to access this page. <a href="password.html">Log in</a></p>
+    </div>
+
+    <div id="main-content" style="display:none;">
         <h1>Edit Moving Heads and Channel Types</h1>
 
         <!-- Moving Heads Section -->
@@ -32,9 +37,16 @@
         <button id="back-button">Back to Index</button>
     </div>
 
-    <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Authentication check
+            if (sessionStorage.getItem('authenticated') !== 'true') {
+                document.getElementById('password-check').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('main-content').style.display = 'block';
+
             const dataFilePath = 'data/moving_heads_channel_types.json';
             let movingHeads = [];
             let channelTypes = [];
