@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (passwordForm && passwordInput && cancelButton) {
         passwordForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent the default form submission
             if (passwordInput.value === correctPassword) {
                 window.location.href = 'index.html'; // Redirect to main page on correct password
             } else {
