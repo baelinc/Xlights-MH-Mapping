@@ -2,8 +2,22 @@
 const PASSWORD = "evans"; // Change this to your desired password
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadData();
-    showTab('manage');
+    if (document.getElementById('main')) {
+        loadData();
+        showTab('manage');
+    }
+    if (document.getElementById('add-moving-head')) {
+        document.getElementById('add-moving-head-form').addEventListener('submit', addMovingHead);
+    }
+    if (document.getElementById('add-channel-type')) {
+        document.getElementById('add-channel-type-form').addEventListener('submit', addChannelType);
+    }
+    if (document.getElementById('edit-moving-head')) {
+        document.getElementById('edit-moving-head-form').addEventListener('submit', updateMovingHead);
+    }
+    if (document.getElementById('edit-channel-type')) {
+        document.getElementById('edit-channel-type-form').addEventListener('submit', updateChannelType);
+    }
 });
 
 // Show a specific tab
@@ -12,11 +26,6 @@ function showTab(tabId) {
         tab.classList.remove('active');
     });
     document.getElementById(tabId).classList.add('active');
-
-    // Automatically show the default tab content
-    if (tabId === 'manage') {
-        updateDropdowns();
-    }
 }
 
 // Load data from the JSON file
@@ -74,92 +83,88 @@ function updateDropdowns() {
     });
 }
 
-// Update channels when moving heads are selected
-function updateChannels() {
-    const sourceIndex = document.getElementById('source-moving-head').value;
-    const destinationIndex = document.getElementById('destination-moving-head').value;
-    
-    if (sourceIndex !== '' && destinationIndex !== '') {
-        const sourceHead = window.data.moving_heads[sourceIndex];
-        const destinationHead = window.data.moving_heads[destinationIndex];
-        
-        console.log(`Source: ${sourceHead.name}, Destination: ${destinationHead.name}`);
-    }
-}
-
 // Add a new moving head
-function addMovingHead() {
+function addMovingHead(event) {
+    event.preventDefault();
+
     const password = prompt('Enter password to add a new moving head:');
     if (password !== PASSWORD) {
         alert('Incorrect password');
         return;
     }
 
-    const name = prompt('Enter moving head name:');
-    if (name) {
-        const channels = prompt('Enter channels (comma separated):');
-        if (channels) {
-            const movingHead = {
-                name,
-                channels: channels.split(',').map(ch => ch.trim())
-            };
-            window.data.moving_heads.push(movingHead);
-            saveData();
-            populateMovingHeads();
-        }
+    const name = document.getElementById('moving-head-name').value;
+    const channels = document.getElementById('moving-head-channels').value;
+
+    if (name && channels) {
+        const movingHead = {
+            name,
+            channels: channels.split(',').map(ch => ch.trim())
+        };
+        window.data.moving_heads.push(movingHead);
+        saveData();
+        window.location.href = 'index.html';
     }
 }
 
 // Edit an existing moving head
-function editMovingHead(head) {
-    const password = prompt('Enter password to edit moving head:');
+function updateMovingHead(event) {
+    event.preventDefault();
+
+    const password = prompt('Enter password to update moving head:');
     if (password !== PASSWORD) {
         alert('Incorrect password');
         return;
     }
 
-    const newName = prompt('Edit moving head name:', head.name);
-    if (newName) {
-        head.name = newName;
-        const newChannels = prompt('Edit channels (comma separated):', head.channels.join(','));
-        if (newChannels) {
-            head.channels = newChannels.split(',').map(ch => ch.trim());
+    const name = document.getElementById('edit-moving-head-name').value;
+    const channels = document.getElementById('edit-moving-head-channels').value;
+
+    if (name && channels) {
+        const index = window.data.moving_heads.findIndex(head => head.name === name);
+        if (index !== -1) {
+            window.data.moving_heads[index].name = name;
+            window.data.moving_heads[index].channels = channels.split(',').map(ch => ch.trim());
             saveData();
-            populateMovingHeads();
+            window.location.href = 'index.html';
         }
     }
 }
 
 // Add a new channel type
-function addChannelType() {
+function addChannelType(event) {
+    event.preventDefault();
+
     const password = prompt('Enter password to add a new channel type:');
     if (password !== PASSWORD) {
         alert('Incorrect password');
         return;
     }
 
-    const type = prompt('Enter new channel type:');
+    const type = document.getElementById('channel-type-name').value;
     if (type) {
         window.data.channel_types.push(type);
         saveData();
-        populateChannelTypes();
+        window.location.href = 'index.html';
     }
 }
 
 // Edit an existing channel type
-function editChannelType(type) {
-    const password = prompt('Enter password to edit channel type:');
+function updateChannelType(event) {
+    event.preventDefault();
+
+    const password = prompt('Enter password to update channel type:');
     if (password !== PASSWORD) {
         alert('Incorrect password');
         return;
     }
 
-    const newType = prompt('Edit the channel type:', type);
-    if (newType) {
-        const index = window.data.channel_types.indexOf(type);
-        window.data.channel_types[index] = newType;
+    const type = document.getElementById('edit-channel-type-name').value;
+    const index = window.data.channel_types.indexOf(type);
+    if (index !== -1) {
+        window.data.channel_types[index] = type;
         saveData();
-        populateChannelTypes();
+        window.location.href = 'index.html';
     }
 }
 
