@@ -4,24 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordInput = document.getElementById('password');
     const cancelButton = document.getElementById('cancel-button');
 
-    if (passwordForm && passwordInput && cancelButton) {
-        passwordForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            if (passwordInput.value === correctPassword) {
-                window.location.href = 'index.html';
-            } else {
-                alert('Incorrect password. Please try again.');
-                passwordInput.value = '';
-            }
-        });
-
-        cancelButton.addEventListener('click', function() {
-            window.location.href = 'index.html';
-        });
-    } else {
-        console.error('Required elements are missing from the password page.');
-    }
-
     const dataFilePath = 'data/moving_heads_channel_types.json';
     let movingHeads = [];
     let channelTypes = [];
@@ -38,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 movingHeads = data.moving_heads || [];
                 channelTypes = data.channel_types || [];
                 updateDropdowns();
-                updateLists();
+                updateLists(); // Update lists for edit page
             })
             .catch(error => {
                 console.error('Error loading data:', error);
@@ -120,6 +102,31 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(url);
     }
 
+    if (document.getElementById('source-moving-head') && document.getElementById('destination-moving-head')) {
+        loadData();
+    }
+
+    document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
+    document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'password.html');
+
+    // Password page functionality
+    if (passwordForm && passwordInput && cancelButton) {
+        passwordForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (passwordInput.value === correctPassword) {
+                window.location.href = 'edit.html';
+            } else {
+                alert('Incorrect password. Please try again.');
+                passwordInput.value = '';
+            }
+        });
+
+        cancelButton.addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+    }
+
+    // Edit page functionality
     function updateLists() {
         const movingHeadsList = document.getElementById('moving-heads-list');
         const channelTypesList = document.getElementById('channel-types-list');
@@ -142,11 +149,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 channelTypesList.appendChild(option);
             });
 
-            movingHeadsList.addEventListener('dblclick', () => editMovingHead());
-            channelTypesList.addEventListener('dblclick', () => editChannelType());
+            movingHeadsList.addEventListener('change', () => toggleEditDeleteButtons('moving-heads-list'));
+            channelTypesList.addEventListener('change', () => toggleEditDeleteButtons('channel-types-list'));
         } else {
             console.error('List elements are missing.');
         }
+    }
+
+    function toggleEditDeleteButtons(listId) {
+        const selectedValue = document.getElementById(listId).value;
+        const editButtonId = listId === 'moving-heads-list' ? 'edit-moving-head-button' : 'edit-channel-type-button';
+        const deleteButtonId = listId === 'moving-heads-list' ? 'delete-moving-head-button' : 'delete-channel-type-button';
+
+        document.getElementById(editButtonId).disabled = !selectedValue;
+        document.getElementById(deleteButtonId).disabled = !selectedValue;
     }
 
     function editMovingHead() {
@@ -156,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const movingHead = movingHeads.find(head => head.name === selectedName);
             if (movingHead) {
                 // Open an edit form or prompt for editing
-                // Implement the edit functionality here
                 alert(`Editing moving head: ${movingHead.name}`);
             }
         }
@@ -167,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedType = channelTypesList.value;
         if (selectedType) {
             // Open an edit form or prompt for editing
-            // Implement the edit functionality here
             alert(`Editing channel type: ${selectedType}`);
         }
     }
@@ -190,12 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (document.getElementById('moving-heads-list') && document.getElementById('channel-types-list')) {
-        loadData();
-    }
-
-    document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
-    document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'edit.html');
     document.getElementById('add-moving-head-button')?.addEventListener('click', () => alert('Add Moving Head functionality not implemented.'));
     document.getElementById('edit-moving-head-button')?.addEventListener('click', editMovingHead);
     document.getElementById('delete-moving-head-button')?.addEventListener('click', deleteMovingHead);
