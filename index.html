@@ -6,28 +6,46 @@
     <title>Index Page</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .dropdown {
+            margin: 0 10px;
+        }
+        #edit-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+        #generate-button {
+            margin-top: 20px;
+        }
+        .channel-list {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
+    <button id="edit-button">Edit</button>
+    <button id="generate-button">Generate</button>
     <div class="container">
-        <div class="dropdowns">
-            <div class="dropdown-container">
-                <label for="source-moving-head">Source Moving Head</label>
-                <select id="source-moving-head">
-                    <option value="">Select Source Moving Head</option>
-                </select>
-                <div id="source-channels"></div>
-            </div>
-            <div class="dropdown-container">
-                <label for="dest-moving-head">Destination Moving Head</label>
-                <select id="dest-moving-head">
-                    <option value="">Select Destination Moving Head</option>
-                </select>
-                <div id="dest-channels"></div>
-            </div>
+        <div id="source-div">
+            <label for="source-moving-head">Source Moving Head:</label>
+            <select id="source-moving-head" class="dropdown"></select>
+            <div id="source-channels" class="channel-list"></div>
         </div>
-        <div class="buttons">
-            <button id="generate-button">Generate XDMX Map</button>
-            <button id="edit-button">Edit Data</button>
+        <div id="dest-div">
+            <label for="dest-moving-head">Destination Moving Head:</label>
+            <select id="dest-moving-head" class="dropdown"></select>
+            <div id="dest-channels" class="channel-list"></div>
         </div>
     </div>
 </body>
