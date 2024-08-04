@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('data/moving_heads_channel_types.json')
         .then(response => response.json())
         .then(data => {
-            console.log('Data fetched:', data); // Debugging line
-            const { moving_heads, channel_types } = data;
+            const { moving_heads } = data;
 
             if (moving_heads && moving_heads.length > 0) {
                 moving_heads.forEach(movingHead => {
@@ -55,15 +54,32 @@ document.addEventListener('DOMContentLoaded', () => {
         generateButton.addEventListener('click', () => {
             const sourceMovingHead = sourceMovingHeadSelect.value;
             const destMovingHead = destMovingHeadSelect.value;
-            const sourceMovingHeadChannels = sourceChannelsDiv.querySelectorAll('div');
-            const destMovingHeadChannels = destChannelsDiv.querySelectorAll('div');
+            const sourceMovingHeadChannels = Array.from(sourceChannelsDiv.querySelectorAll('div'));
+            const destMovingHeadChannels = Array.from(destChannelsDiv.querySelectorAll('div'));
 
             let mappings = [];
+            let blankChannelNumber = 99;
+
             sourceMovingHeadChannels.forEach((sourceChannelDiv, index) => {
-                const sourceChannel = sourceChannelDiv.textContent.split(': ')[1];
-                const destChannelDiv = destMovingHeadChannels[index];
-                const destChannel = destChannelDiv ? destChannelDiv.textContent.split(': ')[1] : `Channel ${99 - index}`;
-                mappings.push(`Channel ${index + 1},${destChannel},1.0,0`);
+                const sourceChannelDescription = sourceChannelDiv.textContent.split(': ')[1];
+                let destChannelNumber = '';
+                let destChannelDescription = '';
+
+                // Find matching destination channel
+                const destChannelDiv = destMovingHeadChannels.find(div => div.textContent.includes(sourceChannelDescription));
+                if (destChannelDiv) {
+                    destChannelDescription = destChannelDiv.textContent.split(': ')[1];
+                    destChannelNumber = destChannelDiv.textContent.split(' ')[1];
+                } else {
+                    // Handle blank channels
+                    if (sourceChannelDescription === 'Blank') {
+                        destChannelNumber = blankChannelNumber--;
+                    } else {
+                        destChannelNumber = 'N/A';
+                    }
+                }
+
+                mappings.push(`Channel ${index + 1},Channel ${destChannelNumber},1.00,0`);
             });
 
             // Create and download the .xdmxmap file
