@@ -41,7 +41,8 @@ function loadData() {
             populateMovingHeads();
             populateChannelTypes();
             updateDropdowns();
-        });
+        })
+        .catch(error => console.error('Error loading data:', error));
 }
 
 // Populate the moving heads list
@@ -85,6 +86,23 @@ function updateDropdowns() {
         sourceSelect.appendChild(option);
         destinationSelect.appendChild(option.cloneNode(true));
     });
+}
+
+// Update channels for the selected moving head
+function updateChannels(type) {
+    const select = document.getElementById(`${type}-moving-head`);
+    const channelsDiv = document.getElementById(`${type}-channels`);
+    channelsDiv.innerHTML = '';
+
+    const index = select.value;
+    if (index !== '') {
+        const movingHead = window.data.moving_heads[index];
+        movingHead.channels.forEach((channel, i) => {
+            const channelElement = document.createElement('div');
+            channelElement.textContent = `Channel ${i + 1}: ${channel}`;
+            channelsDiv.appendChild(channelElement);
+        });
+    }
 }
 
 // Add a new moving head
@@ -209,43 +227,6 @@ function deleteChannelType() {
     }
 }
 
-// Show add moving head form
-function showAddMovingHeadForm() {
-    window.location.href = 'add-moving-head.html';
-}
-
-// Show add channel type form
-function showAddChannelTypeForm() {
-    window.location.href = 'add-channel-type.html';
-}
-
-// Edit moving head
-function editMovingHead(movingHead) {
-    document.getElementById('edit-moving-head-name').value = movingHead.name;
-    document.getElementById('edit-moving-head-channels').value = movingHead.channels.join(', ');
-    document.getElementById('edit-moving-head-form').dataset.index = window.data.moving_heads.findIndex(head => head.name === movingHead.name);
-    window.location.href = 'edit-moving-head.html';
-}
-
-// Edit channel type
-function editChannelType(type) {
-    document.getElementById('edit-channel-type-name').value = type;
-    document.getElementById('edit-channel-type-form').dataset.index = window.data.channel_types.indexOf(type);
-    window.location.href = 'edit-channel-type.html';
-}
-
-// Save data to a JSON file
-function saveData() {
-    const data = JSON.stringify(window.data, null, 2);
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'moving_heads_channel_types.json';
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
 // Generate the XDMX map file
 function generateXDMXMap() {
     const sourceIndex = document.getElementById('source-moving-head').value;
@@ -266,4 +247,16 @@ function generateXDMXMap() {
     } else {
         alert('Please select both source and destination moving heads.');
     }
+}
+
+// Save data to a JSON file
+function saveData() {
+    const data = JSON.stringify(window.data, null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'moving_heads_channel_types.json';
+    a.click();
+    URL.revokeObjectURL(url);
 }
