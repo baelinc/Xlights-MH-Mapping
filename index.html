@@ -5,10 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index Page</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dropdown-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .dropdown-group {
+            flex: 1;
+            margin: 0 10px;
+        }
+        #generate-button {
+            display: block;
+            margin: 20px auto;
+        }
+        #edit-button {
+            float: right;
+        }
+        #source-channels, #destination-channels {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <button id="edit-button" style="float: right;">Edit</button>
+        <button id="edit-button">Edit</button>
         <div class="dropdown-container">
             <div class="dropdown-group">
                 <label for="source-moving-head">Source Moving Head</label>
