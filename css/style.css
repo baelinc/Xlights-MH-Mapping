@@ -1,82 +1,91 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    position: relative; /* Ensure the body is the positioning context for the absolute elements */
-    background-color: #f0f0f0; /* Light gray background for the whole page */
+    box-sizing: border-box;
+    background-color: #f4f4f4;
 }
 
 .container {
     width: 80%;
-    margin: 0 auto;
+    margin: auto;
     padding: 20px;
-    background-color: #ffffff; /* White background for the content area */
-    border: 1px solid #ddd; /* Light border for the box */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+h1 {
+    color: #333;
+}
+
+/* Index Page Styles */
+#main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 table {
     width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse; /* Ensures borders are combined */
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd; /* Light border color for table cells */
-    vertical-align: top; /* Aligns contents to the top of the cells */
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
 th {
-    text-align: left;
-    background-color: #f4f4f4; /* Light gray background for table headers */
+    background-color: #f2f2f2;
 }
 
-td {
-    background-color: #ffffff; /* White background for table cells */
+/* Edit and Password Page Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="submit"], #cancel-button {
+    margin-top: 10px;
+}
+
+/* Edit Page Button Floating */
 #edit-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #007BFF; /* Blue background for edit button */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    z-index: 1000; /* Ensures the button is on top of other elements */
-}
-
-#generate-button {
-    display: block;
-    margin: 20px auto;
-    background-color: #28A745; /* Green background for generate button */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-select {
-    width: 100%; /* Makes dropdowns fill their cells */
-    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
-}
-
-#source-channels, #destination-channels {
-    margin-top: 10px; /* Adds some space above channel lists */
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#edit-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
 }
