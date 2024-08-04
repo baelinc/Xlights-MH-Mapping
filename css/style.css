@@ -14,46 +14,7 @@ body {
     margin: 20px;
 }
 
-h1 {
-    color: #007bff;
-    margin-bottom: 20px;
-}
-
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 12px 24px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-button:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-}
-
-input[type="text"], select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    font-size: 16px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-input[type="text"] {
-    max-width: 300px;
-}
-
+/* Index Page Styles */
 table {
     width: 100%;
     max-width: 1000px;
@@ -84,6 +45,16 @@ tr:nth-child(even) td {
     background-color: #e9ecef;
 }
 
+input[type="text"], select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
 #source-moving-head, #destination-moving-head {
     width: 100%;
     padding: 12px;
@@ -93,6 +64,27 @@ tr:nth-child(even) td {
 
 #source-channels, #destination-channels {
     margin-top: 10px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
 }
 
 #edit-button {
@@ -110,5 +102,73 @@ tr:nth-child(even) td {
 }
 
 #edit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Password Page Styles */
+#password-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #343a40;
+}
+
+input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+#error-message {
+    color: #dc3545;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#cancel-button {
+    background-color: #007bff;
+}
+
+#cancel-button:hover {
     background-color: #0056b3;
 }
