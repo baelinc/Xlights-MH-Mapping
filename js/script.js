@@ -1,24 +1,43 @@
-let data = {
+const data = {
     moving_heads: [],
     channel_types: []
 };
-const password = "admin"; // Set your desired password here
+const password = "admin";
 
 document.addEventListener("DOMContentLoaded", function() {
     if (window.location.pathname.endsWith('index.html')) {
-        loadData();
+        setupIndexPage();
     } else if (window.location.pathname.endsWith('edit.html')) {
-        document.getElementById('edit-content').style.display = 'none'; // Hide edit content initially
+        setupEditPage();
     }
 });
+
+function setupIndexPage() {
+    loadData();
+    document.getElementById('generate-button').addEventListener('click', generateXDMXMap);
+}
+
+function setupEditPage() {
+    document.getElementById('login-button').addEventListener('click', checkPassword);
+    document.getElementById('add-moving-head').addEventListener('click', addMovingHead);
+    document.getElementById('delete-moving-head').addEventListener('click', deleteSelectedMovingHead);
+    document.getElementById('add-channel-type').addEventListener('click', addChannelType);
+    document.getElementById('delete-channel-type').addEventListener('click', deleteSelectedChannelType);
+}
 
 function loadData() {
     fetch('moving_heads_channel_types.json')
         .then(response => response.json())
         .then(jsonData => {
-            data = jsonData;
-            populateMovingHeadsDropdowns();
-            populateChannelTypesList();
+            data.moving_heads = jsonData.moving_heads;
+            data.channel_types = jsonData.channel_types;
+            if (window.location.pathname.endsWith('index.html')) {
+                populateMovingHeadsDropdowns();
+                updateChannelsDisplay();
+            } else if (window.location.pathname.endsWith('edit.html')) {
+                populateMovingHeadsList();
+                populateChannelTypesList();
+            }
         })
         .catch(error => console.error('Error loading JSON data:', error));
 }
@@ -47,31 +66,6 @@ function populateMovingHeadsDropdowns() {
     destDropdown.addEventListener('change', updateChannelsDisplay);
 }
 
-function populateChannelTypesList() {
-    const listbox = document.getElementById('channel-types-list');
-    const channelTypes = data.channel_types;
-
-    listbox.innerHTML = '';
-
-    channelTypes.forEach(type => {
-        const listItem = document.createElement('li');
-        listItem.textContent = type;
-        listItem.ondblclick = () => editChannelType(type);
-        listbox.appendChild(listItem);
-    });
-}
-
-function showTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.style.display = tab.id === tabId ? 'block' : 'none';
-    });
-
-    if (tabId === 'edit') {
-        populateMovingHeadsList();
-        populateChannelTypesList();
-    }
-}
-
 function populateMovingHeadsList() {
     const listbox = document.getElementById('moving-heads-list');
     const movingHeads = data.moving_heads;
@@ -82,6 +76,20 @@ function populateMovingHeadsList() {
         const listItem = document.createElement('li');
         listItem.textContent = movingHead.name;
         listItem.ondblclick = () => editMovingHead(movingHead);
+        listbox.appendChild(listItem);
+    });
+}
+
+function populateChannelTypesList() {
+    const listbox = document.getElementById('channel-types-list');
+    const channelTypes = data.channel_types;
+
+    listbox.innerHTML = '';
+
+    channelTypes.forEach(type => {
+        const listItem = document.createElement('li');
+        listItem.textContent = type;
+        listItem.ondblclick = () => editChannelType(type);
         listbox.appendChild(listItem);
     });
 }
