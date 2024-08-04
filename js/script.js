@@ -244,6 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
     document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'password.html');
+    document.getElementById('save-changes-button')?.addEventListener('click', saveData);
+    document.getElementById('add-moving-head-button')?.addEventListener('click', () => alert('Add Moving Head functionality not implemented.'));
+    document.getElementById('add-channel-type-button')?.addEventListener('click', () => alert('Add Channel Type functionality not implemented.'));
 
     if (document.getElementById('source-moving-head') && document.getElementById('destination-moving-head')) {
         loadData();
@@ -256,7 +259,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('moving-heads-list') && document.getElementById('channel-types-list')) {
         setupEditPage();
     }
-
-    document.getElementById('add-moving-head-button')?.addEventListener('click', () => alert('Add Moving Head functionality not implemented.'));
-    document.getElementById('add-channel-type-button')?.addEventListener('click', () => alert('Add Channel Type functionality not implemented.'));
 });
