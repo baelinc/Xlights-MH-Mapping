@@ -1,138 +1,65 @@
-/* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    background-color: #f0f2f5;
+    position: relative; /* Ensure the body is the positioning context for the absolute elements */
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-button, input[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 5px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover, input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Index Page Styles */
-#main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 80%;
+    margin: 0 auto;
 }
 
 table {
     width: 100%;
-    max-width: 1000px;
-    border-collapse: collapse;
-    margin-top: 20px;
+    margin-bottom: 20px;
+    border-collapse: collapse; /* Ensures borders are combined */
 }
 
-td, th {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Light border color for table cells */
+    vertical-align: top; /* Aligns contents to the top of the cells */
 }
 
 th {
-    background-color: #007bff;
-    color: white;
+    text-align: left;
+    background-color: #f4f4f4; /* Light gray background for table headers */
 }
 
-#source-moving-head, #destination-moving-head {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
+td {
+    background-color: #ffffff; /* White background for table cells */
 }
 
-/* Edit Page Styles */
-#edit-form {
-    display: flex;
-    flex-direction: column;
-}
-
-h2 {
-    color: #007bff;
-    margin-top: 20px;
-}
-
-#moving-head-select, #channel-type-select {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-button {
-    background-color: #28a745;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-/* Password Page Styles */
-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 350px;
-    margin: auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-input[type="password"] {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-#cancel-button {
-    background-color: #dc3545;
-}
-
-#cancel-button:hover {
-    background-color: #c82333;
-}
-
-/* Floating Button */
 #edit-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #17a2b8;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #007BFF; /* Blue background for edit button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1000; /* Ensures the button is on top of other elements */
 }
 
-#edit-button:hover {
-    background-color: #117a8b;
+#generate-button {
+    display: block;
+    margin: 20px auto;
+    background-color: #28A745; /* Green background for generate button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+select {
+    width: 100%; /* Makes dropdowns fill their cells */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+#source-channels, #destination-channels {
+    margin-top: 10px; /* Adds some space above channel lists */
 }
