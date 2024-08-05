@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Moving Head</title>
+    <link rel="stylesheet" href="css/styles.css">
+  <style>
+/* Add this to your existing CSS file or create a new one */
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #007bff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.channel-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.channel-row label {
+    width: 100px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.button-group {
+    margin-top: 20px;
+}
+
+.channel-select {
+    margin-left: 10px;
+    flex: 1;
+}
+  </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Moving Head</h1>
+        <form id="moving-head-form">
+            <label for="moving-head-name">Moving Head Name:</label>
+            <input type="text" id="moving-head-name" required>
+
+            <div id="channels-container"></div>
+
+            <div class="button-group">
+                <button type="button" id="save-button">Save</button>
+                <button type="button" id="cancel-button">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script src="js/edit_moving_head.js"></script>
+</body>
+</html>
