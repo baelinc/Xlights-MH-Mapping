@@ -7,8 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             channelTypes = data;
+            // Populate dropdowns with the initial data
             populateDropdowns();
-        });
+            // Set up initial dropdowns state
+            updateDropdowns();
+        })
+        .catch(error => console.error('Error fetching channel types:', error));
 
     function populateDropdowns() {
         channelTypesDropdowns.forEach(dropdown => {
@@ -46,10 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('num-channels').addEventListener('change', (event) => {
         const numChannels = parseInt(event.target.value);
         if (isNaN(numChannels) || numChannels < 1) return;
-        
+
         const container = document.getElementById('channels-container');
         container.innerHTML = '';
-        
+
         for (let i = 1; i <= numChannels; i++) {
             const channelDiv = document.createElement('div');
             channelDiv.classList.add('channel-row');
@@ -61,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             container.appendChild(channelDiv);
         }
-        
+
+        // Populate dropdowns after creating them
         populateDropdowns();
     });
 
@@ -74,14 +79,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('save-button').addEventListener('click', () => {
         const movingHeadName = document.getElementById('moving-head-name').value;
         const numChannels = document.getElementById('num-channels').value;
-        const channelTypes = Array.from(document.querySelectorAll('.channel-type-dropdown')).map(dropdown => dropdown.value);
+        const selectedChannelTypes = Array.from(document.querySelectorAll('.channel-type-dropdown')).map(dropdown => dropdown.value);
 
         // Save the data logic here
 
         console.log({
             movingHeadName,
             numChannels,
-            channelTypes
+            selectedChannelTypes
         });
     });
 
