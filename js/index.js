@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sourceMovingHead.channels.forEach((sourceChannel, index) => {
                 const destIndex = destinationMovingHead.channels.indexOf(sourceChannel);
                 const destChannel = destIndex !== -1 ? `Channel ${destIndex + 1}` : `Channel ${99 - index}`;
-                csvContent += `Channel ${index + 1}, ${destChannel}, 1.00, 0\n`;
+                csvContent += `Channel ${index + 1},${destChannel},1.00,0\n`;
             });
 
             downloadFile('mapping.xdmxmap', csvContent);
