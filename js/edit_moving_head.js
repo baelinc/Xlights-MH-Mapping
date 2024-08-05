@@ -7,13 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveButton = document.getElementById('save-button');
     const cancelButton = document.getElementById('cancel-button');
 
-    // Load channel types from local storage or an API
+    // Load channel types from a JSON file
     const loadChannelTypes = () => {
-        // Simulate fetching channel types from a file or API
-        return new Promise((resolve) => {
-            // Example channel types
-            resolve(['Type1', 'Type2', 'Type3', 'Type4', 'Type5']);
-        });
+        return fetch('data.json') // Update this URL to your actual data source
+            .then(response => response.json())
+            .then(data => {
+                if (data.channelTypes) {
+                    channelTypes.push(...data.channelTypes);
+                } else {
+                    console.error('No channelTypes found in data.');
+                }
+            })
+            .catch(error => console.error('Error loading channel types:', error));
     };
 
     // Populate dropdown with channel types
@@ -91,12 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for cancel button
     cancelButton.addEventListener('click', () => {
-        // Optionally redirect or clear form
         window.location.href = 'edit_data.html'; // Redirect to edit_data.html
     });
 
     // Initial load
-    loadChannelTypes().then((types) => {
-        channelTypes.push(...types);
+    loadChannelTypes().then(() => {
+        // Optionally handle what happens after loading
+        numChannelsInput.disabled = false; // Enable number of channels input
     });
 });
