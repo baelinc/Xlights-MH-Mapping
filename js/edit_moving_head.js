@@ -1,107 +1,105 @@
-// edit_moving_head.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    const channelTypes = []; // Array to hold channel types
-    const channelsContainer = document.getElementById('channels-container');
-    const numChannelsInput = document.getElementById('num-channels');
-    const saveButton = document.getElementById('save-button');
-    const cancelButton = document.getElementById('cancel-button');
+    const dataFilePath = 'data/moving_heads_channel_types.json';
+    let channelTypes = [];
+    let movingHeadName = '';
 
-    // Load channel types from a JSON file
-    const loadChannelTypes = () => {
-        return fetch('data.json') // Update this URL to your actual data source
-            .then(response => response.json())
-            .then(data => {
-                if (data.channelTypes) {
-                    channelTypes.push(...data.channelTypes);
-                } else {
-                    console.error('No channelTypes found in data.');
+    // Fetch data file
+    function fetchData() {
+        fetch(dataFilePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
                 }
+                return response.json();
             })
-            .catch(error => console.error('Error loading channel types:', error));
-    };
+            .then(data => {
+                channelTypes = data.channel_types || [];
+                setupPage();
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                alert('Failed to load data. Please check the console for errors.');
+            });
+    }
 
-    // Populate dropdown with channel types
-    const populateChannelTypes = (channelSelect) => {
-        channelSelect.innerHTML = ''; // Clear existing options
-        channelTypes.forEach(type => {
-            const option = document.createElement('option');
-            option.value = type;
-            option.textContent = type;
-            channelSelect.appendChild(option);
-        });
-    };
+    function setupPage() {
+        const form = document.getElementById('moving-head-form');
+        const nameInput = document.getElementById('moving-head-name');
+        const channelsContainer = document.getElementById('channels-container');
+        const saveButton = document.getElementById('save-button');
+        const cancelButton = document.getElementById('cancel-button');
 
-    // Generate the channel form dynamically
-    const generateChannels = (numChannels) => {
-        channelsContainer.innerHTML = ''; // Clear existing channels
-        for (let i = 1; i <= numChannels; i++) {
-            const channelRow = document.createElement('div');
-            channelRow.classList.add('channel-row');
+        // Check for saved data in local storage
+        const storedName = localStorage.getItem('movingHeadName');
+        const storedChannels = JSON.parse(localStorage.getItem('channels'));
 
-            const label = document.createElement('label');
-            label.textContent = `Channel ${i}:`;
-            channelRow.appendChild(label);
+        if (storedName) {
+            nameInput.value = storedName;
+            movingHeadName = storedName;
 
-            const channelSelect = document.createElement('select');
-            channelSelect.id = `channel-${i}`;
-            populateChannelTypes(channelSelect);
-            channelRow.appendChild(channelSelect);
-
-            channelsContainer.appendChild(channelRow);
-        }
-    };
-
-    // Event listener for number of channels input
-    numChannelsInput.addEventListener('input', (event) => {
-        const numChannels = parseInt(event.target.value, 10);
-        if (numChannels > 0) {
-            generateChannels(numChannels);
-        }
-    });
-
-    // Event listener for save button
-    saveButton.addEventListener('click', () => {
-        const movingHeadName = document.getElementById('moving-head-name').value;
-        const numChannels = parseInt(numChannelsInput.value, 10);
-
-        if (movingHeadName && numChannels > 0) {
-            // Collect selected channel types
-            const selectedChannelTypes = [];
-            for (let i = 1; i <= numChannels; i++) {
-                const channelSelect = document.getElementById(`channel-${i}`);
-                const selectedType = channelSelect.value;
-                if (selectedType) {
-                    selectedChannelTypes.push(selectedType);
+            // Load stored channels
+            if (storedChannels) {
+                storedChannels.forEach((type, index) => {
+                    addChannelRow(index + 1, type);
+                });
+            } else {
+                for (let i = 1; i <= 10; i++) {
+                    addChannelRow(i);
                 }
             }
-
-            // Check for duplicate channel types
-            if (new Set(selectedChannelTypes).size !== selectedChannelTypes.length) {
-                alert('Each channel type must be unique.');
-                return;
-            }
-
-            // Save data (implement actual saving logic here)
-            console.log('Saving moving head:', movingHeadName);
-            console.log('Number of channels:', numChannels);
-            console.log('Selected channel types:', selectedChannelTypes);
-
-            alert('Moving head configuration saved successfully!');
-            // Optionally redirect or clear form
         } else {
-            alert('Please enter all required information.');
+            for (let i = 1; i <= 10; i++) {
+                addChannelRow(i);
+            }
         }
-    });
 
-    // Event listener for cancel button
-    cancelButton.addEventListener('click', () => {
-        window.location.href = 'edit_data.html'; // Redirect to edit_data.html
-    });
+        // Add event listeners
+        saveButton.addEventListener('click', saveData);
+        cancelButton.addEventListener('click', () => window.location.href = 'edit_data.html');
+    }
 
-    // Initial load
-    loadChannelTypes().then(() => {
-        // Optionally handle what happens after loading
-        numChannelsInput.disabled = false; // Enable number of channels input
-    });
+    function addChannelRow(channelNumber, selectedType = '') {
+        const channelsContainer = document.getElementById('channels-container');
+
+        const row = document.createElement('div');
+        row.className = 'channel-row';
+        row.innerHTML = `
+            <span>Channel ${channelNumber}</span>
+            <select class="channel-type-dropdown" data-channel="${channelNumber}">
+                <option value="">Select Type</option>
+                ${channelTypes.map(type => `<option value="${type}" ${type === selectedType ? 'selected' : ''}>${type}</option>`).join('')}
+            </select>
+        `;
+        channelsContainer.appendChild(row);
+    }
+
+    function saveData() {
+        const nameInput = document.getElementById('moving-head-name');
+        const channelTypeDropdowns = document.querySelectorAll('.channel-type-dropdown');
+
+        movingHeadName = nameInput.value;
+
+        if (!movingHeadName) {
+            alert('Please enter a moving head name.');
+            return;
+        }
+
+        const selectedTypes = Array.from(channelTypeDropdowns).map(dropdown => dropdown.value);
+        const uniqueTypes = [...new Set(selectedTypes)];
+
+        if (selectedTypes.length !== uniqueTypes.length) {
+            alert('Each channel type must be unique.');
+            return;
+        }
+
+        // Save data to local storage
+        localStorage.setItem('movingHeadName', movingHeadName);
+        localStorage.setItem('channels', JSON.stringify(selectedTypes));
+
+        // Redirect or show success message
+        alert('Data saved successfully!');
+        window.location.href = 'edit_data.html';
+    }
+
+    fetchData();
 });
