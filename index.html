@@ -5,30 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moving Head Mapping</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Inline styles for quick adjustments. Ideally, move this to your CSS file */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #main-content {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f8f9fa;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        #source-channels, #destination-channels {
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        button#edit-button {
+            background-color: #007bff;
+        }
+
+        button#edit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Moving Head Mapping</h1>
         <div id="main-content">
             <table>
-                <tr>
-                    <th>Source Moving Head</th>
-                    <th>Destination Moving Head</th>
-                </tr>
-                <tr>
-                    <td>
-                        <select id="source-moving-head">
-                            <option value="">Select Source Moving Head</option>
-                        </select>
-                        <div id="source-channels"></div>
-                    </td>
-                    <td>
-                        <select id="destination-moving-head">
-                            <option value="">Select Destination Moving Head</option>
-                        </select>
-                        <div id="destination-channels"></div>
-                    </td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Source Moving Head</th>
+                        <th>Destination Moving Head</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select id="source-moving-head">
+                                <option value="">Select Source Moving Head</option>
+                            </select>
+                            <div id="source-channels"></div>
+                        </td>
+                        <td>
+                            <select id="destination-moving-head">
+                                <option value="">Select Destination Moving Head</option>
+                            </select>
+                            <div id="destination-channels"></div>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
             <button id="generate-button">Generate XDMX Map</button>
         </div>
