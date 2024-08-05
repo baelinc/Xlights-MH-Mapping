@@ -5,94 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Moving Head</title>
     <link rel="stylesheet" href="css/styles.css">
-  <style>
-/* Add this to your existing CSS file or create a new one */
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
 
-h1 {
-    color: #007bff;
-}
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
+        h1, h2 {
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
 
-label {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+        .form-group, .channel-group {
+            margin-bottom: 20px;
+        }
 
-input[type="text"] {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-}
+        .form-group label, .channel-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
 
-.channel-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
 
-.channel-row label {
-    width: 100px;
-}
+        .channel-group {
+            display: flex;
+            flex-direction: column;
+        }
 
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        .channel-group .channel-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-button:hover {
-    background-color: #218838;
-}
+        .channel-group .channel-row label {
+            flex: 0 0 100px;
+        }
 
-button:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-}
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
 
-.button-group {
-    margin-top: 20px;
-}
+        .button-group .btn {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-.channel-select {
-    margin-left: 10px;
-    flex: 1;
-}
-  </style>
+        .button-group .btn:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        .button-group .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Edit Moving Head</h1>
-        <form id="moving-head-form">
+
+        <div class="form-group">
             <label for="moving-head-name">Moving Head Name:</label>
-            <input type="text" id="moving-head-name" required>
+            <input type="text" id="moving-head-name" placeholder="Enter Moving Head Name">
+        </div>
 
-            <div id="channels-container"></div>
+        <div class="form-group">
+            <label for="num-channels">Number of Channels:</label>
+            <input type="number" id="num-channels" min="1" placeholder="Enter Number of Channels">
+        </div>
 
-            <div class="button-group">
-                <button type="button" id="save-button">Save</button>
-                <button type="button" id="cancel-button">Cancel</button>
-            </div>
-        </form>
+        <div id="channels-container" class="channel-group">
+            <!-- Channels will be dynamically generated here -->
+        </div>
+
+        <div class="button-group">
+            <button id="save-button" class="btn btn-primary">Save</button>
+            <button id="cancel-button" class="btn btn-secondary">Cancel</button>
+        </div>
     </div>
+
     <script src="js/edit_moving_head.js"></script>
 </body>
 </html>
