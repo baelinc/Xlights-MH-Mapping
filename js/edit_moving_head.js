@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load channel types from local storage or an API
     const loadChannelTypes = () => {
-        // Simulating an API call or local storage fetch
+        // Simulate fetching channel types from a file or API
         return new Promise((resolve) => {
             // Example channel types
             resolve(['Type1', 'Type2', 'Type3', 'Type4', 'Type5']);
