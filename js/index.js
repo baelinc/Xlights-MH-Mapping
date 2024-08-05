@@ -64,6 +64,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Call the function to load data when the page loads
+    function generateXDMXMap() {
+        const sourceDropdown = document.getElementById('source-moving-head');
+        const destinationDropdown = document.getElementById('destination-moving-head');
+
+        const sourceMovingHead = movingHeads.find(head => head.name === sourceDropdown.value);
+        const destinationMovingHead = movingHeads.find(head => head.name === destinationDropdown.value);
+
+        if (sourceMovingHead && destinationMovingHead) {
+            let csvContent = '';
+
+            sourceMovingHead.channels.forEach((sourceChannel, index) => {
+                const destIndex = destinationMovingHead.channels.indexOf(sourceChannel);
+                const destChannel = destIndex !== -1 ? `Channel ${destIndex + 1}` : `Channel ${99 - index}`;
+                csvContent += `Channel ${index + 1}, ${destChannel}, 1.00, 0\n`;
+            });
+
+            downloadFile('mapping.xdmxmap', csvContent);
+        } else {
+            alert('Please select both source and destination moving heads.');
+        }
+    }
+
+    function downloadFile(filename, content) {
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // Setup event listeners
+    document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
+    document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'password.html');
+
+    // Load data when page loads
     loadData();
 });
