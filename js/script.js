@@ -17,15 +17,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
+                console.log('Data loaded:', data);
                 movingHeads = data.moving_heads || [];
                 channelTypes = data.channel_types || [];
-                updateDropdowns();
-                updateLists(); // Update lists for edit page
+                updateLists();
             })
             .catch(error => {
                 console.error('Error loading data:', error);
                 alert('Failed to load data. Please check the console for errors.');
             });
+    }
+
+    function updateLists() {
+        const movingHeadsList = document.getElementById('moving-heads-list');
+        const channelTypesList = document.getElementById('channel-types-list');
+
+        if (movingHeadsList && channelTypesList) {
+            movingHeadsList.innerHTML = '';
+            channelTypesList.innerHTML = '';
+
+            movingHeads.forEach(movingHead => {
+                const option = document.createElement('option');
+                option.value = movingHead.name;
+                option.textContent = movingHead.name;
+                movingHeadsList.appendChild(option);
+            });
+
+            channelTypes.forEach(channelType => {
+                const option = document.createElement('option');
+                option.value = channelType;
+                option.textContent = channelType;
+                channelTypesList.appendChild(option);
+            });
+
+            console.log('Moving heads and channel types updated.');
+        } else {
+            console.error('List elements are missing.');
+        }
     }
 
     function updateDropdowns() {
@@ -102,12 +130,39 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(url);
     }
 
+    function saveData() {
+        const updatedData = {
+            moving_heads: movingHeads,
+            channel_types: channelTypes
+        };
+
+        console.log('Saving data:', updatedData);
+
+        fetch(dataFilePath, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                alert('Data saved successfully!');
+            })
+            .catch(error => {
+                console.error('Error saving data:', error);
+                alert('Failed to save data. Please check the console for errors.');
+            });
+    }
+
     function setupPasswordPage() {
         if (passwordForm && passwordInput && cancelButton) {
             passwordForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 if (passwordInput.value === correctPassword) {
-                    window.location.href = 'edit_data.html'; // Updated page name
+                    window.location.href = 'edit_data.html';
                 } else {
                     alert('Incorrect password. Please try again.');
                     passwordInput.value = '';
@@ -216,73 +271,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function updateLists() {
-        const movingHeadsList = document.getElementById('moving-heads-list');
-        const channelTypesList = document.getElementById('channel-types-list');
-
-        if (movingHeadsList && channelTypesList) {
-            movingHeadsList.innerHTML = '';
-            channelTypesList.innerHTML = '';
-
-            movingHeads.forEach(movingHead => {
-                const option = document.createElement('option');
-                option.value = movingHead.name;
-                option.textContent = movingHead.name;
-                movingHeadsList.appendChild(option);
-            });
-
-            channelTypes.forEach(channelType => {
-                const option = document.createElement('option');
-                option.value = channelType;
-                option.textContent = channelType;
-                channelTypesList.appendChild(option);
-            });
-        } else {
-            console.error('List elements are missing.');
-        }
-    }
-
-    function saveData() {
-        const updatedData = {
-            moving_heads: movingHeads,
-            channel_types: channelTypes
-        };
-
-        fetch(dataFilePath, {
-            method: 'POST',  // Changed from 'PUT' to 'POST'
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedData)
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('Data saved successfully.');
-            } else {
-                throw new Error('Failed to save data.');
-            }
-        })
-        .catch(error => {
-            console.error('Error saving data:', error);
-            alert('Failed to save data. Please check the console for errors.');
-        });
-    }
-
-    document.getElementById('generate-button')?.addEventListener('click', generateXDMXMap);
-    document.getElementById('edit-button')?.addEventListener('click', () => window.location.href = 'password.html');
     document.getElementById('save-changes-button')?.addEventListener('click', saveData);
-    document.getElementById('add-moving-head-button')?.addEventListener('click', () => alert('Add Moving Head functionality not implemented.'));
-    document.getElementById('add-channel-type-button')?.addEventListener('click', () => alert('Add Channel Type functionality not implemented.'));
+    document.getElementById('back-button')?.addEventListener('click', () => window.location.href = 'index.html');
 
-    if (document.getElementById('source-moving-head') && document.getElementById('destination-moving-head')) {
-        loadData();
-    }
-
-    if (passwordForm && passwordInput && cancelButton) {
+    const currentPage = window.location.pathname.split('/').pop();
+    if (currentPage === 'password.html') {
         setupPasswordPage();
-    }
-
-    if (document.getElementById('moving-heads-list') && document.getElementById('channel-types-list')) {
+    } else if (currentPage === 'edit_data.html') {
+        loadData();
         setupEditPage();
     }
 });
