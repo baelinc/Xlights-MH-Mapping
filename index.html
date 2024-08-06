@@ -71,38 +71,117 @@
             margin-top: 10px;
         }
 
-                /* From Uiverse.io by mrtqzbek11 */ 
+        /* From Uiverse.io by learnMyHobby */ 
         button {
-          width: 165px;
-          height: 62px;
-          cursor: pointer;
-          color: #fff;
-          font-size: 17px;
-          border-radius: 1rem;
-          border: none;
           position: relative;
-          background: #100720;
-          transition: 0.1s;
+          text-decoration: none;
+          font-size: 15px;
+          text-transform: uppercase;
+          letter-spacing: 5px;
+          line-height: 48px;
+          width: 160px;
+          cursor: pointer;
+          font-weight: bold;
+          height: 55px;
+          -webkit-box-reflect: bottom 1px linear-gradient(transparent, #0004);
+        }
+        
+        button span {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          top: 4px;
+          right: 4px;
+          bottom: 4px;
+          left: 4px;
+          text-align: center;
+          background: #2e2e2e;
+          color: rgba(255, 255, 255, 0.781);
+          transition: 0.5s;
+          z-index: 1;
+        }
+        
+        button:hover span {
+          color: rgba(255, 255, 255, 1);
+        }
+        
+        button::before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          background-size: 400%;
+          opacity: 0;
+          transition: 0.5s;
+          background: linear-gradient(
+            45deg,
+            #91155d,
+            #525296,
+            #0f0,
+            #ff0,
+            #fb0094,
+            #00f,
+            #0f0,
+            #ff0
+          );
+          animation: animate123 20% linear infinte;
         }
         
         button::after {
-          content: '';
+          content: "";
+          position: absolute;
           width: 100%;
           height: 100%;
-          background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
-          filter: blur(15px);
-          z-index: -1;
-          position: absolute;
-          left: 0;
           top: 0;
+          left: 0;
+          background-size: 400%;
+          filter: blur(20px);
+          transition: 0.5s;
+          background: linear-gradient(
+            45deg,
+            #91155d,
+            #525296,
+            #0f0,
+            #ff0,
+            #fb0094,
+            #00f,
+            #0f0,
+            #ff0
+          );
+          animation: animate123 20% linear infinte;
         }
         
-        button:active {
-          transform: scale(0.9) rotate(3deg);
-          background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% );
-          transition: 0.5s;
+        button:hover::before,
+        button:hover::after {
+          opacity: 1;
         }
-
+        
+        @keyframes animate123 {
+          0% {
+            background-position: 0 0;
+          }
+        
+          50% {
+            background-position: 300% 0;
+          }
+        
+          100% {
+            background-position: 0 0;
+          }
+        }
+        
+        button span::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 50%;
+          background: rgba(255, 255, 255, 0.1);
+        }
+        
         button#edit-button {
             background-color: #007bff;
         }
