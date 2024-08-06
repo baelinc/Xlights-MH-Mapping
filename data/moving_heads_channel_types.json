@@ -61,49 +61,49 @@
                 "Reset"
             ]
         },
-		{
+        {
             "name": "MLS/YPS 230w Moving Head",
             "channels": [
                 "Color Wheel",
-				"Strobe",
-				"Dimming",
-				"Gobo",
-				"Prism",
-				"Prism Rotate",
-				"Zoom",
-				"Color Mirror",
-				"Focus",
-				"Pan",
-				"Pan Fine",
-				"Tilt",
-				"Tilt Fine"
-				"Blank",
-				"Blank",
-				"Reset"
+                "Strobe",
+                "Dimming",
+                "Gobo",
+                "Prism",
+                "Prism Rotate",
+                "Zoom",
+                "Color Mirror",
+                "Focus",
+                "Pan",
+                "Pan Fine",
+                "Tilt",
+                "Tilt Fine",
+                "Blank",
+                "Blank",
+                "Reset"
             ]
         },
-		{
+        {
             "name": "YPS Starlight Outdoor 350w",
             "channels": [
                 "Pan",
-				"Tilt",
-				"Pan Fine",
-				"Tilt Fine",
-				"Pan & Tilt Speed",
-				"Color Mirror",
-				"Strobe",
-				"Dimming",
-				"Color Wheel",
-				"Blank",
-				"Gobo",
-				"Blank",
-				"Focus",
-				"Prism",
-				"Prism Rotate",
-				"Reset"
+                "Tilt",
+                "Pan Fine",
+                "Tilt Fine",
+                "Pan & Tilt Speed",
+                "Color Mirror",
+                "Strobe",
+                "Dimming",
+                "Color Wheel",
+                "Blank",
+                "Gobo",
+                "Blank",
+                "Focus",
+                "Prism",
+                "Prism Rotate",
+                "Reset"
             ]
         },
-		{
+        {
             "name": "YPS Outdoor 350w",
             "channels": [
                 "Color Wheel",
@@ -141,6 +141,6 @@
         "Focus",
         "Reset",
         "Blank",
-	"Zoom"
+        "Zoom"
     ]
 }
