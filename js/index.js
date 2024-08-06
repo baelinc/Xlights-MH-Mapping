@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 movingHeads = data.moving_heads || [];
                 channelTypes = data.channel_types || [];
+                movingHeads.sort((a, b) => a.name.localeCompare(b.name)); // Sort moving heads alphabetically
                 updateDropdowns();
             })
             .catch(error => {
