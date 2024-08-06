@@ -71,116 +71,49 @@
             margin-top: 10px;
         }
 
-        /* From Uiverse.io by learnMyHobby */ 
-        button {
-          position: relative;
-          text-decoration: none;
-          font-size: 15px;
-          text-transform: uppercase;
-          letter-spacing: 5px;
-          line-height: 48px;
-          width: 160px;
-          cursor: pointer;
-          font-weight: bold;
-          height: 55px;
-          -webkit-box-reflect: bottom 1px linear-gradient(transparent, #0004);
-        }
-        
-        button span {
-          position: absolute;
+                /* From Uiverse.io by AlimurtuzaCodes */ 
+        .btn {
+          border: none;
+          width: 15em;
+          height: 5em;
+          border-radius: 3em;
           display: flex;
           justify-content: center;
-          top: 4px;
-          right: 4px;
-          bottom: 4px;
-          left: 4px;
-          text-align: center;
-          background: #2e2e2e;
-          color: rgba(255, 255, 255, 0.781);
-          transition: 0.5s;
-          z-index: 1;
+          align-items: center;
+          gap: 12px;
+          background: #1C1A1C;
+          cursor: pointer;
+          transition: all 450ms ease-in-out;
         }
         
-        button:hover span {
-          color: rgba(255, 255, 255, 1);
+        .sparkle {
+          fill: #AAAAAA;
+          transition: all 800ms ease;
         }
         
-        button::before {
-          content: "";
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-          background-size: 400%;
-          opacity: 0;
-          transition: 0.5s;
-          background: linear-gradient(
-            45deg,
-            #91155d,
-            #525296,
-            #0f0,
-            #ff0,
-            #fb0094,
-            #00f,
-            #0f0,
-            #ff0
-          );
-          animation: animate123 20% linear infinte;
+        .text {
+          font-weight: 600;
+          color: #AAAAAA;
+          font-size: medium;
         }
         
-        button::after {
-          content: "";
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-          background-size: 400%;
-          filter: blur(20px);
-          transition: 0.5s;
-          background: linear-gradient(
-            45deg,
-            #91155d,
-            #525296,
-            #0f0,
-            #ff0,
-            #fb0094,
-            #00f,
-            #0f0,
-            #ff0
-          );
-          animation: animate123 20% linear infinte;
+        .btn:hover {
+          background: linear-gradient(0deg,#A47CF3,#683FEA);
+          box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+          inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+          0px 0px 0px 4px rgba(255, 255, 255, 0.2),
+          0px 0px 180px 0px #9917FF;
+          transform: translateY(-2px);
         }
         
-        button:hover::before,
-        button:hover::after {
-          opacity: 1;
+        .btn:hover .text {
+          color: white;
         }
         
-        @keyframes animate123 {
-          0% {
-            background-position: 0 0;
-          }
-        
-          50% {
-            background-position: 300% 0;
-          }
-        
-          100% {
-            background-position: 0 0;
-          }
-        }
-        
-        button span::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 50%;
-          background: rgba(255, 255, 255, 0.1);
-        }
+        .btn:hover .sparkle {
+          fill: white;
+          transform: scale(1.2);
+        } 
         
         button#edit-button {
             background-color: #007bff;
@@ -221,6 +154,13 @@
             </table>
             <button id="generate-button">Generate XDMX Map</button>
         </div>
+        <button class="btn" id="generate-button">
+    <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
+        <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+    </svg>
+
+    <span class="text">Generate XDMX Map</span>
+</button>
         <button id="edit-button">Edit</button>
     </div>
     <script src="js/index.js"></script>
