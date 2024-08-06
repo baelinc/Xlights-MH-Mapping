@@ -1,7 +1,7 @@
 {
     "moving_heads": [
         {
-            "name": "Phoenix Ray",
+            "name": "Phoenix Ray 300W",
             "channels": [
                 "Pan",
                 "Pan Fine",
@@ -60,7 +60,70 @@
                 "Color Mirror",
                 "Reset"
             ]
-        }
+        },
+		{
+            "name": "MLS/YPS 230w Moving Head",
+            "channels": [
+                "Color Wheel",
+				"Strobe",
+				"Dimming",
+				"Gobo",
+				"Prism",
+				"Prism Rotate",
+				"Zoom",
+				"Color Mirror",
+				"Focus",
+				"Pan",
+				"Pan Fine",
+				"Tilt",
+				"Tilt Fine"
+				"Blank",
+				"Blank",
+				"Reset"
+            ]
+        },
+		{
+            "name": "YPS Starlight Outdoor 350w",
+            "channels": [
+                "Pan",
+				"Tilt",
+				"Pan Fine",
+				"Tilt Fine",
+				"Pan & Tilt Speed",
+				"Color Mirror",
+				"Strobe",
+				"Dimming",
+				"Color Wheel",
+				"Blank",
+				"Gobo",
+				"Blank",
+				"Focus",
+				"Prism",
+				"Prism Rotate",
+				"Reset"
+            ]
+        },
+		{
+            "name": "YPS Outdoor 350w",
+            "channels": [
+                "Color Wheel",
+                "Dimming",
+                "Strobe",
+                "Gobo",
+                "Prism",
+                "Prism Rotate",
+                "Blank",
+                "Blank",
+                "Focus",
+                "Pan",
+                "Pan Fine",
+                "Tilt",
+                "Tilt Fine",
+                "Pan & Tilt Speed",
+                "Color Mirror",
+                "Reset"
+            ]
+        },
     ],
     "channel_types": [
         "Pan",
@@ -77,6 +140,7 @@
         "Prism Rotate",
         "Focus",
         "Reset",
-        "Blank"
+        "Blank",
+		"Zoom"
     ]
 }
