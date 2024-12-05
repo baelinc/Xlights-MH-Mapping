@@ -19,8 +19,116 @@
                 "Reset"
             ]
         },
+		{
+            "name": "Phoenix Ray MAX",
+            "channels": [
+                "Pan",
+                "Pan Fine",
+                "Tilt",
+                "Tilt Fine",
+                "Pan & Tilt Speed",
+                "Color Wheel",
+                "Gobo",
+				"Blank",
+                "Prism",
+                "Prism Rotate",
+				"Blank",
+				"Blank",
+				"Color Mirror",
+                "Focus",
+				"Blank",
+				"Strobe",
+				"Dimming",
+				"Blank",
+                "Reset",
+				"Blank"
+            ]
+        },
+		{
+            "name": "Dominar Lempa",
+            "channels": [
+                "Color Wheel",
+                "Strobe",
+				"Dimming",
+				"Gobo",
+				"Prism",
+				"Prism Rotate",
+				"Blank",
+				"Color Mirror",
+				"Focus",
+				"Pan",
+				"Pan Fine",
+				"Tilt",
+				"Tilt Fine",
+                "Pan & Tilt Speed",
+				"Blank",
+				"Blank",
+				"Blank",
+				"Blank",
+				"Blank"
+            ]
+        },
+		{
+            "name": "Dominar",
+            "channels": [
+                "Dimming",
+                "Strobe",
+                "Color Wheel",
+                "Gobo",
+                "Color Mirror",
+                "Prism",
+                "Prism Rotate",
+                "Focus",
+                "Pan",
+                "Pan Fine",
+                "Tilt",
+                "Tilt Fine",
+                "Pan",
+                "Pan & Tilt Speed",
+				"Reset"
+            ]
+        },
+		{
+            "name": "Geni",
+            "channels": [
+                "Dimming",
+                "Strobe",
+                "Color Wheel",
+                "Gobo",
+                "Blank",
+                "Prism Rotate",
+                "Focus",
+                "Pan",
+                "Tilt",
+                "Pan Fine",
+                "Tilt Fine",
+                "Blank",
+				"Reset"
+            ]
+        },
         {
             "name": "YPS 350W",
+            "channels": [
+                "Color Wheel",
+                "Dimming",
+                "Strobe",
+                "Gobo",
+                "Prism",
+                "Prism Rotate",
+                "Blank",
+                "Blank",
+                "Focus",
+                "Pan",
+                "Pan Fine",
+                "Tilt",
+                "Tilt Fine",
+                "Pan & Tilt Speed",
+                "Color Mirror",
+                "Reset"
+            ]
+        },
+		{
+            "name": "Wallys Mega Beam",
             "channels": [
                 "Color Wheel",
                 "Dimming",
@@ -62,7 +170,28 @@
             ]
         },
         {
-            "name": "MLS/YPS 230w Moving Head",
+            "name": "YPS 230w",
+            "channels": [
+                "Color Wheel",
+                "Strobe",
+                "Dimming",
+                "Gobo",
+                "Prism",
+                "Prism Rotate",
+                "Zoom",
+                "Color Mirror",
+                "Focus",
+                "Pan",
+                "Pan Fine",
+                "Tilt",
+                "Tilt Fine",
+                "Blank",
+                "Blank",
+                "Reset"
+            ]
+        },
+		{
+            "name": "Magical Light Show",
             "channels": [
                 "Color Wheel",
                 "Strobe",
@@ -84,6 +213,27 @@
         },
         {
             "name": "YPS Starlight Outdoor 350w",
+            "channels": [
+                "Pan",
+                "Tilt",
+                "Pan Fine",
+                "Tilt Fine",
+                "Pan & Tilt Speed",
+                "Color Mirror",
+                "Strobe",
+                "Dimming",
+                "Color Wheel",
+                "Blank",
+                "Gobo",
+                "Blank",
+                "Focus",
+                "Prism",
+                "Prism Rotate",
+                "Reset"
+            ]
+        },
+		{
+            "name": "Wallys Mini Beam",
             "channels": [
                 "Pan",
                 "Tilt",
